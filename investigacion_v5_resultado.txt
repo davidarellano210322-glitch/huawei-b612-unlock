@@ -1,0 +1,74 @@
+===================================================================
+ EXPEDIENTE: DESBLOQUEO B612s-51d — RESULTADO DE LA INVESTIGACIÓN A FONDO
+ Fecha: 2026-08-12  |  IMEI: 864596030624094  |  Chip actual: WOM
+===================================================================
+
+HALLAZGO #1 (el más importante): ¿Qué es realmente el unlock_v7r11?
+
+El archivo "unlock_v7r11_2018-07-14.exe" NO es un calculador de códigos.
+Es un INSTALADOR (Setup Factory de Indigo Rose). Le extraje el payload
+oculto y encontré solo 3 archivos:
+
+   bin/adb.exe        (el ADB de Google)
+   bin/AdbWinApi.dll
+   go.cmd             <-- EL SCRIPT REAL DEL DESBLOQUEO
+   hideconsole.exe
+
+El go.cmd hace esto (traducido del ruso):
+
+   bin\adb connect <IP>:5555
+   bin\adb shell busybox killall add_param
+   bin\adb shell "atc AT^NVWREX=8268,0,12,1,0,0,0,2,0,0,0,A,0,0,0"
+   bin\adb shell "echo -en 'AT^RESET\r' > /dev/appvcom1"
+
+O sea: se conecta por ADB (puerto 5555), mata el daemon "add_param"
+(el que aplica el bloqueo), ESCRIBE LA NVRAM con el mismo comando
+AT^NVWREX=8268... que usa desbloquear_b612.py, y reinicia el módem.
+
+CONCLUSIÓN: NO calcula ningún código. No existe calculador V5 para
+esta familia. Por eso el autor del tool usó el bypass de NVRAM:
+porque el código NO se puede derivar del IMEI (se genera en los
+servidores/BD del operador). Lo mismo confirman huaweicalc (forth32)
+y HMUC: solo implementan V1-V3 (dongles viejos), no V5 de routers.
+
+HALLAZGO #2: Estado en vivo del router con el chip WOM (verificado hoy)
+
+   SimLockEnable    = 1      (bloqueo ACTIVO)
+   SimLockVersion   = 5      (algoritmo V5)
+   SimLockRemainTimes = 2    (¡solo 2 intentos! no gastarlos)
+   SimState         = 257    (chip WOM detectado, listo sin PIN)
+   ConnectionStatus = 902    (sin servicio de red — bloqueo activo)
+   PLMN             = vacío  (el router NO registra WOM)
+   simlockStatus    = 1      (confirmado por monitoring/status)
+
+HALLAZGO #3: Puertas que quedaban y su resultado
+
+   - api/vsim/operateswitch-vsim (SIM virtual): 100003 — muerto
+   - api/dialup/profiles, auto-apn: 100003 — muerto
+   - api/log/loginfo (logs del sistema): 100003 — muerto
+   - api/pin/simlock (solo lectura): VIVO — por eso sabemos los 2 intentos
+   - Firmware M_AT rootfs: extracción incompleta, sin contenido útil
+
+VEREDICTO FINAL
+
+El bloqueo vive en la NVRAM del módem. Las únicas llaves que existen:
+
+   🔑 LLAVE 1 — Código NCK de Entel (gratis, garantizado, 10 min)
+      800 367 626 (o tienda Entel). IMEI 864596030624094.
+      Por normativa de Subtel el desbloqueo de equipos es gratis.
+      Con el código:  python ingresar_codigo.py <código>
+      (El código correcto NO gasta intentos.)
+
+   🔑 LLAVE 2 — Flasheo USB con kit_flasheo (autónomo, ~40 min)
+      M_AT por USB → desbloquear_b612.py escribe la NVRAM
+      → desbloquea SIN tocar los 2 intentos. Método confirmado
+      por el usuario aomsk en 4PDA para el -51d.
+
+   ❌ NO HAY LLAVE 3. La web está muerta (probado con 40+ endpoints,
+      uploads con 2 clientes HTTP, HTTPS, DNS, SIM swap monitoreado,
+      análisis binario de las herramientas). El unlock_v7r11 necesita
+      ADB (5555), que solo abre el firmware M_AT, que solo entra por USB.
+
+   ⚠️ Con 2 intentos restantes: NUNCA probar códigos al azar.
+      Dos códigos equivocados = hard-lock permanente del prompt.
+===================================================================

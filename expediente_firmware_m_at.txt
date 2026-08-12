@@ -1,0 +1,59 @@
+===================================================================
+ EXPEDIENTE FINAL: ANÁLISIS PROFUNDO DEL FIRMWARE M_AT 11.195
+ (desbloqueo B612s-51d, IMEI 864596030624094)
+===================================================================
+
+QUÉ SE HIZO EN ESTA RONDA (detective, a fondo)
+
+1. IPv6 escaneado por primera vez (fd5c::1, fe80, EUI-64 del MAC):
+   mismos puertos que IPv4 (53/80/443). Sin servicios ocultos.
+
+2. Extracción COMPLETA del firmware M_AT 11.195 (70 MB):
+   - Tabla de particiones parseada (ptable 1.00, V7R500_CPE):
+     m3boot, fastboot, nvbacklte, nvdefault, nvimg, nvdload,
+     oeminfo, kernel, kernelbk, dts, m3image, dsp, hifi,
+     vxworks, wbdata, om, app, webui, system, userdata...
+   - 2.005 archivos del WebUI extraídos (webui_full/):
+     * TODO el backend Lua del WebUI (html/api/*.lua)
+     * lib/libpinapi.so  <- librería PIN/SIM-lock
+     * lib/libnvram.so   <- librería NVRAM
+     * bin/sms, atapi, el daemon de verificación del simlock
+   - El módem es "Balong V700R500C31B195" (compilado 2017-10-25).
+
+3. MECANISMO COMPLETO DEL SIM-LOCK (reconstruido del propio firmware):
+
+   WebUI (página simlockrequired) 
+     -> libpinapi.so  (ATP_PIN_VerifySimlock)
+     -> comando AT^SHLOCK=<estado>,<código>   (tabla AT del atapi)
+     -> daemon escribe el código a /dev/simlock_file
+     -> el MÓDEM (Balong) valida el código contra su secreto
+     -> si falla: cuenta intentos (RemainTimes) y REINICIA
+
+4. PRUEBA DEFINITIVA DE QUE NO EXISTE CALCULADOR LOCAL:
+
+   - libpinapi.so NO importa NINGUNA función criptográfica
+     (solo strlen/strcmp/atoi/AT_*). El código se envía tal cual
+     al módem. La validación (hash con secreto) está DENTRO del
+     firmware del módem, inaccesible.
+   - Por eso el unlock_v7r11 hace el bypass por NVRAM
+     (AT^NVWREX=8268...) en vez de calcular códigos.
+   - Por eso NUNCA existió calculador V5 para routers v7R11
+     (a diferencia de los dongles v1-v5, cuyos secretos se filtraron).
+   - Los vendedores de códigos los obtienen de la BD del operador,
+     no los calculan.
+
+5. CONCLUSIÓN (con evidencia del propio firmware, no teoría):
+
+   El código NCK de este router NO se puede calcular desde el IMEI.
+   Solo existen dos llaves:
+   - El código de Entel (gratis, ley chilena): 800 367 626,
+     IMEI 864596030624094. El único código que existe.
+   - Flasheo USB del M_AT (kit_flasheo): escribe la NVRAM
+     (AT^NVWREX=8268) sin gastar intentos y desbloquea de raíz.
+
+   La web está cerrada por diseño del firmware Entel C110:
+   todos los handlers de escritura están arrancados (100003).
+
+   Estado actual del router: SimLockEnable=1, V5, RemainTimes=2,
+   chip WOM detectado pero sin registro de red (ConnectionStatus 902).
+===================================================================

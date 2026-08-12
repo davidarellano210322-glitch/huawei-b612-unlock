@@ -1,0 +1,95 @@
+EXPEDIENTE RONDA: LA VERDAD DEL UPDATE WEB + EL HALLAZGO B612__1
+===============================================================
+Fecha: 2026-08-12  |  Router: B612s-51d  |  FW: 11.192.00.00.110  |  WebUI: 21.100.31.00.03
+
+------------------------------------------------------------------
+1) EL MODELO EN LA CABECERA: LA DIFERENCIA REAL ENTRE PAQUETES
+------------------------------------------------------------------
+Header de cada firmware (los 2 primeros bytes de la zona 0x60-0xb0):
+
+  B612-25d_UPDATE_11.192.05.00.00_M_AT.zip  ->  :B612__0:11.192.05.00.00   (FALLO)
+  B612-25d_UPDATE_11.195.03.00.00_M_AT.zip  ->  :B612__0:11.195.03.00.1445 (FALLO probable)
+  B612_UPDATE_81.201.01.01.234_sec_M_AT_V3.9.bin (Mod3-9) ->  :B612__1:81.201.01.01.234  (NUNCA PROBADO)
+
+El Mod3-9 (81.201) es el UNICO paquete que trae B612__1 en la cabecera.
+Los dos que fallaron traen B612__0. El router es B612s-51d.
+
+Soportado por los expertos de 4PDA:
+  - Undertaker39 (el mas activo del hilo): "para el B612-51d, el
+    81.201 mod 3.9 y el 11.195.00.00.1445 son buenos" (literal).
+  - e-dok: el paquete 81.198 AT "debe funcionar en B612-25d-51d".
+  - Un usuario con -25d que flasheo el Mod3-9: "parece que esta
+    hecho para el ...51d, no para mi 25" (CDJKuznets).
+
+------------------------------------------------------------------
+2) LA PUERTA DEL SIMLOCK EN LA PAGINA DE ACTUALIZACION (redirect.js)
+------------------------------------------------------------------
+La pagina update_local.html carga redirect.js que hace:
+  api/pin/simlock -> si SimLockEnable == "1" -> REDIRIGE a
+  simlockrequired.html (la pagina de codigo de desbloqueo).
+
+O sea: EN UN ROUTER BLOQUEADO, LA ACTUALIZACION LOCAL POR EL MENU
+NUNCA CARGA - te manda a la pagina del codigo. Huawei bloquea el
+flasheo en routers bloqueados por diseno.
+
+PERO: la URL directa http://192.168.8.1/html/update.html?mode=local
+SE SIRVE SIN REDIRECCION (verificado: responde 200 con la pagina,
+sin saltar a simlockrequired).
+
+------------------------------------------------------------------
+3) LA SUBIDA LOCAL NO ES DE BROWSER
+------------------------------------------------------------------
+Verificado en el HTML/JS del router vivo:
+  - update_local.html: solo redirect (sin input de archivo).
+  - update.html?mode=local: carga update.js que NO tiene codigo de
+    seleccion/subida de archivo (solo online-update).
+  - Todos los endpoints de subida probados (/, /update,
+    /api/update/upgrade-file, /cgi-bin/upgrade, /upload):
+    respuesta 100003 = handler muerto/desconocido.
+
+CONCLUSION: en esta WebUI la "actualizacion local" real se hace con
+la herramienta externa del canal Telegram (item 49):
+  inst_webui_2019-08-01.rar (572 KB) - "WEB UI Exe setup"
+Es la que mencionan en 4PDA: "i need B612s-25d WEB UI Exe setup
+so i can update directly my device".
+
+------------------------------------------------------------------
+4) PAQUETE PREPARADO PARA PROBAR
+------------------------------------------------------------------
+  B612-51d_UPDATE_81.201.01.01.234_M_AT_V3.9_para_web.zip  (41 MB)
+  = bin Mod3-9 (B612__1:81.201.01.01.234) + ReleaseDoc.
+  El bin trae telnetd/adbd/TelnetEnable (verificado por strings).
+
+  Contenido del Mod3-9 (verificado):
+    - Header: HWEW11.1, 2020.05.15, B612__1:81.201.01.01.234
+    - WebUI interna: 81.100.34.01.23 (mas nueva que 21.100.31.00.03)
+    - strings: SimLockEnable x6, SHLOCK x6, check_simlock x12,
+      telnetd x10, adbd x7  -> es un M_AT completo (quita simlock
+      y habilita telnet/adb).
+
+------------------------------------------------------------------
+5) ESTADO ACTUAL DEL ROUTER (verificado en vivo)
+------------------------------------------------------------------
+  - api/pin/simlock  -> VIVO: SimLockEnable=1, RemainTimes=2, V5
+  - api/pin/status   -> VIVO: SimState=257 (SIM ok), PinOptState=258
+  - api/global/module-switch -> VIVO (localupdate_enabled presente)
+  - api/online-update/status -> VIVO: IDLE, sin update staged
+  - api/online-update/url-list -> 100001 (servidor Entel muerto)
+  - endpoints de subida local -> 100003 (muertos)
+
+------------------------------------------------------------------
+6) PLAN DE ACCION (en orden de riesgo)
+------------------------------------------------------------------
+  A. Descargar inst_webui_2019-08-01.rar del canal t.me/huaweiunlock
+     (el tool oficial de update por red) y usarlo con el paquete
+     Mod3-9. Es el mecanismo real de "actualizacion local".
+  B. Probar la URL directa update.html?mode=local (salta la puerta
+     del simlock) con el zip nuevo. Si el handler vive, el modelo
+     B612__1 pasa el chequeo.
+  C. Si todo falla: el kit USB (kit_flasheo) sigue siendo la via
+     probada para el -51d.
+  D. Entel 800 367 626 (NCK gratis, IMEI 864596030624094).
+
+ADVERTENCIA de 4PDA: tras instalar estos AT algunos usuarios
+perdieron registro de red. El estado actual ya es 902 (sin red),
+asi que no empeora: y con telnet/adb del M_AT se puede ajustar.

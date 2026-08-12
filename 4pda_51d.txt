@@ -1,0 +1,57 @@
+--- st=20 post#5 ---
+"B612s-52dTCPU-V100R001B196D03SP00C00_Firmware_general_05015CKB.zip" "B612s-51dCUST-B00C464_Configurable Software_05015FGL.zip" "B612s-51dCUST-B03C1395_Configurable Software_05015FCL.zip" "B612s-51dTCPU-V100R001B195D03SP00C1395_Firmware_05015FCJ.zip" "B612s-51dTCPU-V100R001B196D01SP01C464_Firmware_05015FGK.zip" "B612s-52dCUST-B00C00_Configurable Software_general_05015CKC.zip" Прикрепленные файлы B612s-51dCUST-B00C464_Configurable Software_05015FGL.zip ( 6.76 МБ ) B612s-52dCUST-B00C00_Configurable Software_general_05015CKC.zip ( 207.63 КБ ) B612s-51dCUST-B03C1395_Configurable Software_05015FCL.
+
+--- st=20 post#6 ---
+alirazamanzoor, alirazamanzoor &#064; 21.06.18, 15:07 "B612s-52dTCPU-V100R001B196D03SP00C00_Firmware_general_05015CKB.zip" "B612s-51dCUST-B00C464_Configurable Software_05015FGL.zip" "B612s-51dCUST-B03C1395_Configurable Software_05015FCL.zip" "B612s-51dTCPU-V100R001B195D03SP00C1395_Firmware_05015FCJ.zip" "B612s-51dTCPU-V100R001B196D01SP01C464_Firmware_05015FGK.zip" "B612s- 52dCUST-B00C00_Configurable Software_general_05015CKC.zip
+
+--- st=20 post#8 ---
+"B612s-51dTCPU-V100R001B195D01SP00C266_Firmware_05015FYB.zip" "B612s-25dCUST-B01C131_Configurable Software_05015DJU.zip" "B612s-25dCUST-B01C1445_Configurable Software_05015GAC.zip" "B612s-25dTCPU-V100R001B195D01SP01C131_Firmware_05015DJT.zip" "B612s-25dTCPU-V100R001B195D03SP00C1445_Firmware_05015GAB.zip" "B612s-51dCUST-B00C266_Configurable Software_05015FYD.zip" Прикрепленные файлы B612s-25dCUST-B01C1445_Configurable Software_05015GAC.zip ( 6.76 МБ ) B612s-51dCUST-B00C266_Configurable Software_05015FYD.zip ( 6.76 МБ ) B612s-25dCUST-B01C131_Configurable Software_05015DJU.zip ( 6.74 МБ ) B612s-5
+
+--- st=20 post#18 ---
+"B612s-51dTCPU-V100R001B196D01SP01C464_Firmware_05015FGK.zip" "B612s-25dTCPU-V100R001B192D05SP00C287_Firmware_05014RPP.zip" "B612s-25dTCPU-V100R001B195D03SP00C1217_Firmware_05015EXB.zip" "B612s-25dTCPU-V100R001B195D03SP00C1445_Firmware_05015GAB_2.zip" "B612s-25dTCPU-V100R001B196D01SP00C697_Firmware_05015FDH.zip" "B612s-51dTCPU-V100R001B195D01SP00C266_Firmware_05015FYB.zip" Прикрепленные файлы B612s-25dTCPU-V100R001B192D05SP00C287_Firmware_05014RPP.zip ( 39.14 МБ ) B612s-51dTCPU-V100R001B195D01SP00C266_Firmware_05015FYB.zip ( 39.65 МБ ) B612s-51dTCPU-V100R001B196D01SP01C464_Firmware_05015FGK.zi
+
+--- st=20 post#19 ---
+B612s-25dTCPU-V100R001B192D05SP00C1472_Firmware_05014VFY.zip ( 39.57 МБ ) B612s-51dCUST-B03C1395_Configurable Software_05015FCL.zip ( 6.76 МБ ) B612s-25dCUST-B01C1472_Configurable Software_05014VGA.zip ( 6.75 МБ ) B612s-51dCUST-B01C198_Firmware_05014MKE.zip ( 7.04 МБ ) B612s-25dCUST-B01C1472_Configurable Software_05014VGA.zip ( 6.75 МБ ) B612s-51dCUST-B01C198_Firmware_05014MKE.zip ( 7.04 МБ ) B612s-51dCUST-B01C198_Firmware_05014MKE.zip ( 7.04 МБ ) Прикрепленные файлы B612s-51dTCPU-V100R001B192D00SP01C1029_Firmware_05014QWD.zip ( 39.5 МБ ) B612s-51dTCPU-V100R001B195D03SP00C1395_Firmware_05015FC
+
+--- st=80 post#7 ---
+e-dok &#064; 03.12.18, 15:02 Прикрепленный файлB612-25d_UPDATE_81.198.11.00.00-WEBUI_81.100.31.03.03_AT.zip ( 39,62 МБ ) - должна работать на B612-25d-51d, скриншоты веб интерфейса 81 можно посмотреть с B525
+
+--- st=80 post#8 ---
+HELP HELP !! после любой перепрошивки на эти прошивки роутер перестает видеть сеть Прикрепленный файлB612-25d_UPDATE_11.195.03.00.00_AT.zip ( 41,81 МБ ) Прикрепленный файлB612-25d_UPDATE_11.197.03.00.00_AT.zip ( 41,79 МБ ) - должна работать на всех модельках B612 Прикрепленный файлB612-25d_UPDATE_81.198.11.00.00-WEBUI_81.100.31.03.03_AT.zip ( 39,62 МБ ) - должна работать на B612-25d-51d, скриншоты веб интерфейса 81 можно посмотреть с B525 уже 5 штук таких наштамповал без сети
+
+--- st=100 post#11 ---
+Дорогие друзья помогите разблокировать блокировку сим карты для Huawei b612s-51d Пожалуйста.Пожалуйста.Пожалуйста.Пожалуйста.
+
+--- st=120 post#12 ---
+У меня есть B612s-51d с прошивкой 81.x есть ли способ форсировать полосы, если есть возможность форсировать идентификатор ячейки с помощью мода прошивки?
+
+--- st=120 post#16 ---
+привет, я из Чили, и здесь оператор использует "b612s-51d". Я понял инструкции по обновлению, но я не знаю, какую версию мне нужно использовать, у нас есть версия "11.192.00.00.110". Спасибо. English hello, I'm from Chile, and here an operator uses "b612s-51d". I understood update instructions, but I don't know which version I must to use, we have version "11.192.00.00.110". Thank you.
+
+--- st=160 post#13 ---
+Есть модель b612 51d, добавлен вайфай на 5ггц! Прошивки от версии b612 25d подойдут?
+
+--- st=160 post#14 ---
+Bester2, Пробуй 11.197.03.00.00, по идее должна работать на 51d. На родном софте точно на 5ггц работает? Скрины сделай. Ну если разберешь корпус, то хорошо бы фото платы с двух сторон, посмотреть отличие от 25d есть ли. На плате 25d антеннки для 5ггц как бы есть, но похоже много чего не припаяно. Сообщение отредактировал e-dok - 15.04.20, 09:22
+
+--- st=160 post#15 ---
+дорогой, я ценю вашу помощь , мне нужно знать как разблокировать роутер b612s-51d полоса частот 3 1800 лт заблокирована. мне жаль, я использую Google Translate С уважением
+
+--- st=160 post#16 ---
+e-dok, это картина для b612s-51d e-dok &#064; 15.04.20, 09:03 Ну если разберешь корпус, то хорошо бы фото платы с двух сторон, посмотреть отличие от 25d есть ли.
+
+--- st=180 post#20 ---
+hi Masters , Some one can help me i need B612s-25d WEB UI Exe setup so i can update directly My Device My Device Used general Software I try to unlock the device with "Revskills" Firmware its works my Device was unlocked network is not working good so i try to update WEB UI by mistake i have update other country WEB Ui Configuration files Attached file-51dCUST-B612s B00C464_Configurable Software_05015FGL.zip (6.76 MB) Attached fileB612s-52dCUST-B00C00_Configurable Software_general_05015CKC.zip (207,63 KB) Attached fileB612s-51dCUST-B03C1395_Configurable Software_05015FCL.zip (6.76 MB) Attached
+
+--- st=260 post#13 ---
+@Undertaker39! any way to install a CA firmware for a b612s-51d preferably that includes the bands b4aws and b66 aws? Сообщение отредактировал gonzalobahia - 16.04.21, 17:52
+
+--- st=260 post#14 ---
+For B612-51d I don't know! but also think the 11.195.00.00.1445 and 81.201 mod 3.9 good for the 51d! Unfortunately can not test! Got 25d! Please use B01C00 and B01C234 config file please I found a B01 but unfortunately without exe Прикрепленные файлы B612s-25dCUST-B01C00_Firmware_null_null_05014LRW.zip ( 177.55 КБ )
+
+--- st=260 post#19 ---
+Hello @Undertaker39! I have the 51d with those firmware: Software version: 11.195.03.00.1445 Web UI version: 21.100.31.00.03(11.236.01.00.00)_Mod1.5 Are there any new update firmware and webmod?
+
+--- st=360 post#4 ---
+For needed file B612s-51dTCPU-V100R001B192D00SP00C1029 _Firmware_Jordan_Umniah_05014PTS.zip B612s-51dCUST-B00C1029 _Firmware_Jordan_Umniah_05014PTR.zip Добавлено 28.08.2025, 00:36: Please help me for unlock b612-51 Please Please Добавлено 28.08.2025, 00:38: I needed frimware open adb for b612-51d
+

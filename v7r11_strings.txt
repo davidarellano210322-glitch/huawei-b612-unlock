@@ -1,0 +1,953 @@
+!This program cannot be run in DOS mode.
+`.rdata
+@.data
+t(j.Xj\f
+@u;j'Yj
+ulWj@X;
+u&h|uB
+u2j\Xf
+tKhxvB
+V@@AAf
+YWj\_f9>uOf9~
+j Y+L$
+HtFHt8Ht*Ht
+_^][YY
+8SVWj 
+@u!j Y
+u4hxwB
+`SVWjh
+VVh(xB
+HtHHt:
+uPh\vB
+SSShdxB
+8"tVVWS
+HtCHt<Ht5H
+YYh@uB
+HtOHt^HtBHu#
+HtiHt>
+t3VSSj
+?vYj@_+
+<B@II;
+FAA;t$
+0r3SUf
+HtFHt8Ht*Ht
+Op9GTsU
+Np9FTsP
+w5WWWW
+t<SSSS
+ tSj X
+QD9] t
+QQSVWd
+s[S;7|G;w
+tR99u2
+URPQQh
+0A@@Ju
+t"SS9]
+0SSSSS
+>=Yt1j
+j@j ^V
+;t$,v-
+UQPXY]Y[
+0SSSSS
+0SSSSS
+PPPPPPPP
+PPPPPPPP
+t+WWVPV
+^SSSSS
+j"^SSSSS
+YNANRC
+bad allocation
+*messages***
+CryptUnprotectMemory
+CryptProtectMemory
+SetDllDirectoryW
+Z2fQ`c
+Unknown exception
+bad exception
+EncodePointer
+DecodePointer
+FlsFree
+FlsSetValue
+FlsGetValue
+FlsAlloc
+CorExitProcess
+runtime error 
+TLOSS error
+SING error
+DOMAIN error
+An application has made an attempt to load the C runtime library incorrectly.
+Please contact the application's support team for more information.
+- Attempt to use MSIL code from this assembly during native code initialization
+This indicates a bug in your application. It is most likely the result of calling an MSIL-compiled (/clr) function from a native constructor or from DllMain.
+- not enough space for locale information
+- Attempt to initialize the CRT more than once.
+This indicates a bug in your application.
+- CRT not initialized
+- unable to initialize heap
+- not enough space for lowio initialization
+- not enough space for stdio initialization
+- pure virtual function call
+- not enough space for _onexit/atexit table
+- unable to open console device
+- unexpected heap error
+- unexpected multithread lock error
+- not enough space for thread data
+This application has requested the Runtime to terminate it in an unusual way.
+Please contact the application's support team for more information.
+- not enough space for environment
+- not enough space for arguments
+- floating point support not loaded
+Microsoft Visual C++ Runtime Library
+<program name unknown>
+Runtime Error!
+Program: 
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+(null)
+`h````
+xpxxxx
+`h`hhh
+xppwpp
+ Complete Object Locator'
+ Class Hierarchy Descriptor'
+ Base Class Array'
+ Base Class Descriptor at (
+ Type Descriptor'
+`local static thread guard'
+`managed vector copy constructor iterator'
+`vector vbase copy constructor iterator'
+`vector copy constructor iterator'
+`dynamic atexit destructor for '
+`dynamic initializer for '
+`eh vector vbase copy constructor iterator'
+`eh vector copy constructor iterator'
+`managed vector destructor iterator'
+`managed vector constructor iterator'
+`placement delete[] closure'
+`placement delete closure'
+`omni callsig'
+ delete[]
+ new[]
+`local vftable constructor closure'
+`local vftable'
+`udt returning'
+`copy constructor closure'
+`eh vector vbase constructor iterator'
+`eh vector destructor iterator'
+`eh vector constructor iterator'
+`virtual displacement map'
+`vector vbase constructor iterator'
+`vector destructor iterator'
+`vector constructor iterator'
+`scalar deleting destructor'
+`default constructor closure'
+`vector deleting destructor'
+`vbase destructor'
+`string'
+`local static guard'
+`typeof'
+`vcall'
+`vbtable'
+`vftable'
+operator
+ delete
+__unaligned
+__restrict
+__ptr64
+__clrcall
+__fastcall
+__thiscall
+__stdcall
+__pascal
+__cdecl
+__based(
+GetProcessWindowStation
+GetUserObjectInformationA
+GetLastActivePopup
+GetActiveWindow
+MessageBoxA
+USER32.DLL
+ !"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ABCDEFGHIJKLMNOPQRSTUVWXYZ{|}~
+HH:mm:ss
+dddd, MMMM dd, yyyy
+MM/dd/yy
+December
+November
+October
+September
+August
+February
+January
+Saturday
+Friday
+Thursday
+Wednesday
+Tuesday
+Monday
+Sunday
+SunMonTueWedThuFriSat
+JanFebMarAprMayJunJulAugSepOctNovDec
+CONOUT$
+d:\Projects\WinRAR\SFX\build\sfxrar32\Release\sfxrar.pdb
+InitCommonControlsEx
+COMCTL32.dll
+SHAutoComplete
+SHLWAPI.dll
+GetCurrentDirectoryW
+GetLastError
+SetLastError
+CreateHardLinkW
+CloseHandle
+GetCurrentProcess
+SetFileTime
+DeviceIoControl
+CreateFileW
+FindClose
+FindFirstFileW
+DeleteFileW
+RemoveDirectoryW
+CreateDirectoryW
+MoveFileW
+GetShortPathNameW
+GetLongPathNameW
+FlushFileBuffers
+WriteFile
+GetStdHandle
+SetFilePointer
+SetEndOfFile
+GetFileType
+ReadFile
+GetFileAttributesW
+SetFileAttributesW
+FindNextFileW
+GetFullPathNameW
+GetModuleFileNameW
+FindResourceW
+GetModuleHandleW
+FreeLibrary
+GetProcAddress
+LoadLibraryW
+GetCurrentProcessId
+GetLocaleInfoW
+GetNumberFormatW
+ExpandEnvironmentStringsW
+WaitForSingleObject
+DosDateTimeToFileTime
+GetDateFormatW
+GetTimeFormatW
+FileTimeToSystemTime
+FileTimeToLocalFileTime
+GetExitCodeProcess
+GetTempPathW
+MoveFileExW
+UnmapViewOfFile
+MapViewOfFile
+GetCommandLineW
+CreateFileMappingW
+GetTickCount
+SetEnvironmentVariableW
+OpenFileMappingW
+CreateThread
+EnterCriticalSection
+LeaveCriticalSection
+GetProcessAffinityMask
+ReleaseSemaphore
+ResetEvent
+DeleteCriticalSection
+SetEvent
+SetThreadPriority
+InitializeCriticalSection
+CreateEventW
+CreateSemaphoreW
+SystemTimeToFileTime
+GetSystemTime
+LocalFileTimeToFileTime
+WideCharToMultiByte
+MultiByteToWideChar
+CompareStringW
+IsDBCSLeadByte
+GetCPInfo
+GlobalAlloc
+SetCurrentDirectoryW
+KERNEL32.dll
+EnableWindow
+GetDlgItem
+ShowWindow
+MessageBoxW
+SetWindowLongW
+GetWindowLongW
+GetWindow
+GetSystemMetrics
+SetWindowTextW
+GetWindowTextW
+SetWindowPos
+GetClientRect
+GetWindowRect
+LoadStringW
+DispatchMessageW
+TranslateMessage
+GetMessageW
+PeekMessageW
+ReleaseDC
+SendMessageW
+wvsprintfW
+SetDlgItemTextW
+GetDlgItemTextW
+EndDialog
+SendDlgItemMessageW
+GetClassNameW
+SetFocus
+DestroyIcon
+DialogBoxParamW
+IsWindowVisible
+WaitForInputIdle
+SetForegroundWindow
+GetSysColor
+PostMessageW
+LoadBitmapW
+LoadIconW
+OemToCharBuffA
+CharUpperW
+IsWindow
+CopyRect
+DestroyWindow
+DefWindowProcW
+RegisterClassExW
+LoadCursorW
+UpdateWindow
+CreateWindowExW
+MapWindowPoints
+GetParent
+FindWindowExW
+USER32.dll
+DeleteDC
+StretchBlt
+SelectObject
+CreateCompatibleBitmap
+GetObjectW
+CreateCompatibleDC
+GetDeviceCaps
+DeleteObject
+GDI32.dll
+CommDlgExtendedError
+GetSaveFileNameW
+GetOpenFileNameW
+COMDLG32.dll
+AdjustTokenPrivileges
+LookupPrivilegeValueW
+OpenProcessToken
+SetFileSecurityW
+RegCloseKey
+RegSetValueExW
+RegCreateKeyExW
+RegQueryValueExW
+RegOpenKeyExW
+ADVAPI32.dll
+SHGetPathFromIDListW
+SHBrowseForFolderW
+SHGetMalloc
+SHGetSpecialFolderLocation
+SHFileOperationW
+SHGetFileInfoW
+ShellExecuteExW
+SHChangeNotify
+SHELL32.dll
+OleUninitialize
+OleInitialize
+CoCreateInstance
+CLSIDFromString
+CreateStreamOnHGlobal
+ole32.dll
+OLEAUT32.dll
+RtlUnwind
+HeapFree
+HeapReAlloc
+HeapAlloc
+GetSystemTimeAsFileTime
+RaiseException
+GetCommandLineA
+GetStartupInfoA
+TlsGetValue
+TlsAlloc
+TlsSetValue
+TlsFree
+InterlockedIncrement
+GetCurrentThreadId
+InterlockedDecrement
+HeapCreate
+VirtualFree
+VirtualAlloc
+TerminateProcess
+UnhandledExceptionFilter
+SetUnhandledExceptionFilter
+IsDebuggerPresent
+HeapSize
+ExitProcess
+GetModuleFileNameA
+GetACP
+GetOEMCP
+IsValidCodePage
+LCMapStringA
+LCMapStringW
+FreeEnvironmentStringsA
+GetEnvironmentStrings
+FreeEnvironmentStringsW
+GetEnvironmentStringsW
+SetHandleCount
+QueryPerformanceCounter
+InitializeCriticalSectionAndSpinCount
+GetConsoleCP
+GetConsoleMode
+LoadLibraryA
+GetStringTypeA
+GetStringTypeW
+GetLocaleInfoA
+SetStdHandle
+WriteConsoleA
+GetConsoleOutputCP
+WriteConsoleW
+CreateFileA
+WINRAR.SFX
+.?AW4RAR_EXIT@@
+FFF))EE
+FFFF))))))
+.?AVbad_alloc@std@@
+.?AVexception@std@@
+ (08@P`p
+.?AVtype_info@@
+.?AVbad_exception@std@@
+                          
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                          
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+WwS7'u
+gwS37%w`
+WwR"'P
+Wwgu"'P
+g33WwQ
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity
+  version="1.0.0.0"
+  processorArchitecture="*"
+  name="WinRAR SFX"
+  type="win32"/>
+<description>WinRAR SFX module</description>
+<trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+  <security>
+    <requestedPrivileges>
+      <requestedExecutionLevel level="asInvoker"            
+      uiAccess="false"/>
+    </requestedPrivileges>
+  </security>
+</trustInfo>
+<dependency>
+  <dependentAssembly>
+    <assemblyIdentity
+      type="win32"
+      name="Microsoft.Windows.Common-Controls"
+      version="6.0.0.0"
+      processorArchitecture="*"
+      publicKeyToken="6595b64144ccf1df"
+      language="*"/>
+  </dependentAssembly>
+</dependency>
+<compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+  <application>
+    <!--The ID below indicates application support for Windows Vista -->
+      <supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}"/>
+    <!--The ID below indicates application support for Windows 7 -->
+      <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>
+    <!--The ID below indicates application support for Windows 8 -->
+      <supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"/>
+  </application>
+</compatibility>
+<asmv3:application xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
+  <asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">
+    <dpiAware>true</dpiAware>
+  </asmv3:windowsSettings>
+</asmv3:application>
+</assembly>
+Setup=go.cmd
+Setup=hideconsole bin\adb kill-server
+SetupCode
+TempMode
+Silent=1
+Overwrite=1
+hideconsole.exe
+@uDD23
+P)l,Mxg
+QNjz!z
+!k0/5U
+TY_top^
+O*6~5K
+Z|6m&6
+Q0jHIB
+;Rie0\
+*v[6^s/Q
+ZoZyM8
+go.cmd
+T_5Z|)
+>}IZuk
+bin/adb.exe
+LSlO%N
+'$IvsX-
+ ;*# aK
+$]AK\W
+cB05xU#"
+k#wD22
+f`)HBu
+Z->@BAZ
+3 m2j5a[
+id>Rfg
+Kq.Sr2
+cbMfWi
+(V<sU[
+S$2c+5
+0d,8 qQ
+x]Q6nT@Z
+n}SDQO
+B"v7nY
+qWe,K'
+8fRjvR
+^TL$G>9
+20Ss:.l
+]Kh?pD
+9{Vmo3
+r\xrLJ
+Gg@^\N6
+P2bc=_
+m _;xrD
+.8*KOXG
+gz'NWgW
+&raXgZ
+62Hn51
+EaJ.@C<
+]oao-!i
+(^/=d<~
+wAJ[h{
+W@8Sxw0w
+7,8#&=L
+>{quX?L
+R>oh8U%
+UT2#gpX
+E?>ID6J;
+M  ~Uob
+m5pXc.
+^[f8S8
+nFY>OP@
+gl]"/#
+vf.`$B
+)gtNlc
+Cnl#*,
+/a*Fn<
+("{W-0
+IxVT!A
+vTL"_I
+z$ -`"
+x g\\l
+Pn.0-g
+!6bh&?
+JEmk.54
+S9h'j.
+q`b`=A~
+-iXuwb
+0Q_|}v
+Jeet$Rf
+,KCz[jq
+f@XAGG
+]|}9!m9
+ Cxxb6
+ 7ow_N
+l}55D"=
+ZGl|e9K^
+LIDiK>
++M.SS^
+TVtz?K
+D`i1Kg
++.|fjr
+.4Y@^Q
+<6{8lc10I
+3?\K^^
+$"b?7I
+%)5v\(U=
+V='~E=
+QK[^5k
+i.Dwz"
+gQPwTE"WfP6g
+id5LA+
+yotvqN
+"qHV_[
+~`re ?
+(>L%&<`;
+^kD#[o:8
+ndeT0"
+/0O&K{
+z0QiJr
+B/A0y5
+qXW$=50
+=[t0YRe
+ ?|:$(
+WNCP}kd
+KI<Fkl[#
+E%{~pZ^|
+gW{y#-
+O:d!`&q5
+_j<7?5
+gqJ5Aas
+:|yrMn
+).o&w<?L
+3u9GZN
+vw7sniY
+:GU$uW
+.PJ.Ew
+O-2=X8m
+6O88p|
+f'{R?'y
+%*-9QG
+R@ _Zo(
+wP;)f*'e?g
+}M7II3{
+I}=1pj
+~:jZ@f
+wyhK?o#
+Ue4C#PH
+Pm?~_O`
+"Vyg!_
+_sVv\*_
+G9RlN9L
+r^xf8B
+tNpQ#A
+il}[us
+nUi.U;
+Y$SV6k
+8e@z*t
+;%:z;B=
+][U!1,
+ls] q/
+IJ&~ZE
+dx~cZ2,
+xcCo+c
+SC'|Ua
+~2-e'f
+Xjz<Qb
+?B(8oX
+Hw J,l
+}U~2:B
+oqqp$O#N
+|k?<;=rN
+q?")5|v
+{F(VPMG
+E'un,n
+;3pT"=h
+&|K{C]
+}exyNJ
+0#]U?BK
+}m<7K0<
+}NX5&l
+3;h' b
+MEOU\Y
+#hLpXI
+Q*;D#_
+,Fj8YY@)
+6sCkh*
+fgy%>x%
+zRUy'qr
+6?L!Pf
+;{4= Z
+2)3 tY
+n.J:kRZ.
+.H8688
+aIRI!U
+]AZ"I2!
+l8v9^w
+!E\'KWA
+4!JQVr.)S
+,~%BJ0
+Z?v<Bv
+(}<Qj1
+@#y28!(
+VF+e&px!
+Q3X([H
+xom\la
+UU326pH
+C%XdI0
+NVnb8f
+=c/K i
+)hW`'"
+&Y=Fxu
+szR1u(3BxX
+ NS9Yd
+RufE@iyT
+fM@59c
+$X*J55
+M6Jnw .l
+%3yZ4y
+/R1u*2
+EE#P*\E
+QM>\cK
+/`bCNV
+N_kz;j
+E6^*{$
+{zs*5L-
+Sh+(5L,
+=.9D- 
+q%*b#`
+WV5y\$)
+gL0cR3
+*<!eER
+MI)@}c
+Lc/ne8
+kXIBB_s
+"eXB/3 %
+.P=L4)i
+BD1^oSF[
+qrrF3T
+@tIjOq
+!x-:YS
+Qs&tSL
+Q&$[$'k
+!E8hT~8
+B"vyX|
+V5R,G%
+[Ey\o}
+>})'|Y
+giZRF%
+ 3BySy
+K#cvwC
+F0O`A:#
+TT2$gpG
+-@%^1+!
+Gm1'W`
+wL&"!X
+Gsh!aQd
+?%@Fu9
+c ]@~M
+P*Sf"+(b
+@%A -lG
+^GlK|SE*a
+kvd"H[8
+]}&\Pm
+X0$xJ;r=U}%
+#me[EZ
+s$^=Tl
+yZfKHMWlKdR
+H}_HUN
+O.,n(C
+)+wnA^
+^qbz&h
+&)80D=_
+eh~|VR
+ygR<4kT!r
+l2j?*8|
+AwP^uj*c
+\c0Qh$s
+iElHkn
+KBW${4q
+WcJ6a 
+ICU*.m"
+{\"Q}J_
+!LSnq%
+=xWLiMDc
+#6X>tq
+V7*nn0
+8i>]2Zs
+V2|#z 
+u"e2K1
+SuONc'
+ex\^M6
+P1zQ@j
+DD23vpH
+]]]^-[
+Fy(cZR
+mXm{k\
+Q=-i>P
+D`C>7H
+VYuZ"1.
+" wVRvR
+"w(tvb
+qycer,k
+sysqjH
+7ud)Sx
+I&if^f%
+R,VWM-HR
+ 4cUh}
+NgEY7y2
+#tyV63fj
+RWA!m*
+/`|%8d2
+Ah!b4u
+9CIRPc
+1v5Jc$
+[1m/yH
+hrVmg6
+[s=z 8
+Ae-0ly
+vJ+LP'
+O+b:<_&*v
+R4G[^t
+S()Qh]
+-;ljd-
+>Nrk&"
+3Ll-5!
+2MRIE}
+qT$f}D
+UdgXg,
+i-o[It/}
+p,xV7v
+`xR+_p
+?&-60I
+Qp[CXw
+t?K@OD]
+3|ErP1
+;(^rc-
+@z%iW@
+VUz5c?
+%CN*U"4
+"}uOeZ
+y^wnzp+
+$j)2$8
+^k'^%^*
+I,YCShD
+8>DGR7
++2 T<YW
+j4o7i'
+';RVh$
+S3c,|V2
+563wsq
+*(1,;3[?
+C12 >9.?
+,2>TC[
+ c2"9bR
+$L1+U|
+[5'PI@
+(AXEAt]
+]=z!^f
+$c%;Bc
+?tgqZdb
+)u8E~q
+rAovvF
+wkASWL
+\9L51MR|
+h,BwiG
+f.;bYR
+<jU!Q.
+?fF{9J
+1`vDD2&g
+2;~0'h
+[J=p+K
+Ds429a
+"2<k.1
+*M6^nl
+Nq"RZ5
+sV5t#V
+f=sJf4
+pJs,]\
+mpiKm;5z
+UjSjsq
+IVY3%)<
+A!RZCU
+fhlL|f
+C99+(L
+fi;\,G7
+Aj61)*
+vX>.B+yKa
+&\r_4O
+jZs5:A
+bin/AdbWinApi.dll
+UT2#Xpi
+ d d"z $
+XfmZ%{
+t5f?MJ
+y}=}Uv
+hN[qD>
+;8IvvKM
+OQ]TJ8e$]u
+w3Z:qF^\
+7/20rl
+*i,bR%
+ebkZ(6\$q
+;M^<,4
+p\L8As
+{>4!wHll 
+?P:/"F (N
+V-gW*_B\
+G*Pi}e5zQ
+}RCTPT
+Z(/ _,D
+b2h_Le
+!?iO=6
+L5 NCj
+XU)Xb 
+0-`V&$
+zJ4EAK"
+~fg$sO
+FQ?uNw
+&yq$=Yr
+=owO_El?3
+\|5Bg;
+aN2ZJR
+`3t(>i
++Pc'*5=
+3??=<mK)
+o~Q(]Y
+raP/V4
+X1,P,FV+
+6_u#lx:
+_H|^bdw
+#,PB{B
+W`wUT"4V`Wg
+!]k4?q
+\|i^]5
+DL(9@!
+yijhin
+3(Wc)P
+K\!eDT
+%8&@dbl
+eprz7Z
+ H1p`F
+ilfis,@eRn
+=B6Ve+z
+S+yy$C
+9IQ}=6
+,f}kB.
+[k%ac-
+%z3xPj
+~*{`*S
+!kO=~S#%
+j+65b[
+orS\(Q
+x$SdFt
+HPHxjP\
+o{N\u9
+Az[>> 
+rXXK*q
+^{{wQ2
+4^Qs!?8
+!Z[JwMP
+X]1,QOAg
+rj/,=\A
+`EwZ^6n
+!^as\B
+;$",6y
+.rPIr[
+v-Ur~JH
+;)yq/g
+AV%V)V-V1W
+j4>iXa
+2TiQ%B
+9@xE~~
+o7)YSY
+i=$>":&
+7Khq9[
+TA--yH
+7U@4BV
+5Lo]9MM
+N2%g|&
+.fOX&h
+'[<uOS
+#EH5Gy
+bin/adb.exe
+bin/AdbWinApi.dll

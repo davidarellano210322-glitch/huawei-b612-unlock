@@ -1,0 +1,194 @@
+=====================================================================
+ EXPEDIENTE: EL LOGIN REAL ES SCRAM — TODOS LOS 100003 ANTERIORES
+ FUERON CON SESIÓN FALSA (2026-08-12)
+=====================================================================
+
+HALLAZGO CRÍTICO DE LA RONDA
+---------------------------------------------------------------------
+1) El login admin/admin NUNCA estableció sesión. El endpoint
+   /api/user/login devolvía "<response>OK</response>" con password_type=4
+   + sha256 plano, pero state-login quedaba en State=-1 todo el tiempo.
+   TODAS las pruebas anteriores (40+ endpoints, uploads, "handlers
+   muertos") se hicieron SIN SESIÓN REAL.
+
+2) El firmware usa login SCRAM obligatorio:
+   state-login -> extern_password_type=1
+   Flujo (replicado de main.js):
+     a) GET /api/webserver/token -> token; CSRF = token.substr(32)
+     b) POST /api/user/challenge_login
+        {username, firstnonce, mode=1} -> {salt, iterations=500, servernonce}
+     c) clientProof = SCRAM-SHA-256:
+        saltedPassword = PBKDF2-HMAC-SHA256(password, salt, iter, 32)
+        clientKey = HMAC(salted, "Client Key")
+        storedKey = SHA256(clientKey)
+        clientSig = HMAC(storedKey, authMsg)
+        clientProof = clientKey XOR clientSig
+        authMsg = firstnonce + "," + servernonce + "," + servernonce
+     d) POST /api/user/authentication_login {clientproof, finalnonce}
+     e) El servidor ROTA el token CSRF en el header de respuesta
+        __RequestVerificationToken -> usarlo en la siguiente petición
+        (si se usa el viejo: 125003 = ERROR_WRONG_SESSION_TOKEN)
+     f) Verificar: state-login State=0
+
+3) La contraseña REAL NO es admin/admin. Con el flujo SCRAM correcto:
+   - admin/admin      -> 108006 (contraseña incorrecta)
+   - 12345678, 123456, 00000000, 87654321, 1234567890, admin123,
+     password, 12345 -> todas incorrectas
+   - El router BLOQUEA tras pocos intentos (108007 con waittime 1-2 min)
+   - El tip del propio firmware dice: la contraseña está en la ETIQUETA
+     (nameplate) del router: "check the nameplate".
+
+CONSECUENCIA
+---------------------------------------------------------------------
+El veredicto "la web está cerrada / handlers muertos" queda EN DUDA:
+los 100003 podrían ser "no autorizado" en vez de "handler inexistente".
+Con una sesión admin REAL hay que re-probar:
+   - /api/filemanager/upload  (update local = inst_webui)
+   - /api/system/atcmd y similares (comando AT -> AT^NVWREX=8268
+     = desbloqueo SIN flashear)
+   - diagnóstico, módulos, logout, online-update
+
+HERRAMIENTAS
+---------------------------------------------------------------------
+- webui_update.py --password <clave>   : login SCRAM + subida del zip
+- sesion_b612.py --password <clave>    : login SCRAM + re-test completo
+  de todos los endpoints "muertos" con sesión real (+ --at para mandar
+  un comando AT directo)
+
+PENDIENTE (necesita al usuario)
+---------------------------------------------------------------------
+La contraseña del WebUI está en el sticker de la parte inferior del
+router (nameplate). Al obtenerla:
+   python sesion_b612.py --password <clave>
+y según el resultado:
+   - Si los handlers responden: ¡desbloqueo por web posible!
+     python webui_update.py --password <clave>
+   - Si siguen en 100003: confirmado de verdad -> USB (kit_flasheo)
+     o NCK Entel 800 367 626 (IMEI 864596030624094).
+
+=====================================================================
+ RONDA SIGUIENTE (OFFLINE): EL CLIENTE SCRAM VERIFICADO CON MOCK +
+ BUG DE ROTACIÓN CSRF POST-LOGIN ENCONTRADO Y CORREGIDO (2026-08-12)
+=====================================================================
+
+POR QUÉ HACÍA FALTA ESTA RONDA
+---------------------------------------------------------------------
+El 108006 del router real es el MISMO para "contraseña incorrecta" y
+para "prueba SCRAM mal calculada": con 108006 NO se puede saber si el
+cliente calcula bien el proof. Además, el login fallido también rota el
+token (authentication_login.lua), así que el flujo completo nunca se
+había visto con un login EXITOSO. Si el cliente tuviera un bug, el
+primer intento con la contraseña del sticker fallaría de forma
+ambigua (y los intentos de login son limitados: 108007 con waittime).
+
+QUÉ SE HIZO
+---------------------------------------------------------------------
+1) VERIFICACIÓN CONTRA EL FIRMWARE EXTRAÍDO (webui_full/):
+   - scram.js: saltedPassword=PBKDF2-SHA256(pw, hex(salt), iter, 32);
+     clientKey=HMAC(salted,"Client Key"); storedKey=SHA256(clientKey);
+     clientSig=HMAC(storedKey, authMsg); proof=clientKey XOR clientSig.
+     -> coincide EXACTO con webui_update.login_scram().
+   - main.js: g_scarm_salt = CryptoJS.enc.Hex.parse(salt) (salt HEX,
+     coincide con bytes.fromhex); authMsg = firstnonce + "," +
+     servernonce + "," + servernonce (idéntico); mode=1 (RSA_LOGIN_MODE).
+   - getTokenFromHeader: toma los PRIMEROS 32 chars del header rotado
+     -> coincide con rotated_token() v[:32].
+   - authentication_login.lua: al validar el proof el servidor VUELVE
+     a rotar el token (web.setHeaderRequestVerificationToken "one"/"two"
+     y el pool en "__RequestVerificationToken" con tokens separados por
+     '#'). challenge_login.lua NO rota.
+
+2) BUG REAL ENCONTRADO Y CORREGIDO EN webui_update.login_scram():
+   El cliente leía la rotación del token SOLO tras challenge_login;
+   tras authentication_login seguía con el token viejo -> la
+   verificación state-login posterior habría devuelto 125003 y el
+   login habría "fallado" AUNQUE la contraseña fuera correcta. Ahora
+   se relee rotated_token() tras authentication_login (igual que el
+   JS, que hace push del token del header en g_requestVerificationToken).
+
+3) HERRAMIENTA NUEVA: test_scram.py (verificación OFFLINE end-to-end)
+   Levanta un mock B612 que replica el lado servidor del firmware
+   (SCRAM-SHA-256, serversignature, rotación con one/two/pool,
+   state-login, sesión por cookie) con una contraseña CONOCIDA:
+
+     python test_scram.py
+
+   Resultado: TODOS LOS CHECKS OK
+     [OK] contraseña correcta -> login True (State=0)
+     [OK] token CSRF rotado tras authentication_login adoptado (32 chars)
+     [OK] contraseña incorrecta -> False (108006)
+     [OK] token CSRF viejo rechazado (125003)
+
+   PRIMERA prueba que demuestra que el proof del cliente es correcto
+   (antes solo había 108006 contra el router real, que es ambiguo).
+
+4) api_b612.py actualizado a login SCRAM (--password obligatorio,
+   --username/--host opcionales): la "puerta B" (sondeo de endpoints +
+   comandos AT) ya no usa el login admin/admin falso.
+
+ESTADO DE LAS HERRAMIENTAS (todas listas para la clave del sticker)
+---------------------------------------------------------------------
+   python sesion_b612.py --password <clave>    # re-test completo
+   python webui_update.py  --password <clave>  # update local por web
+   python api_b612.py      --password <clave>  # sondeo + comando AT
+   python test_scram.py                        # auto-test offline (mock)
+
+PENDIENTE: sigue igual — obtener la contraseña del sticker y correr
+sesion_b612.py --password <clave>.
+
+=====================================================================
+ RONDA EN VIVO: PRUEBA EXACTA DEL STICKER RECHAZADA (108006) +
+ EL ROUTER REAL ROTA EL TOKEN EN EL CHALLENGE (2026-08-12)
+=====================================================================
+
+QUÉ SE HIZO (herramienta nueva: intento_login.py, log completo)
+---------------------------------------------------------------------
+1) Se probó la clave EXACTA del sticker  user=admin  pass='210322Cd..'
+   (len 10, verificada por repr — sin alteración de la terminal).
+
+2) Reto real capturado (challenge_login, NO gasta intentos):
+     servernonce = <64 hex + 24 base64>  (texto, se usa literal)
+     salt        = 42d8ac911657a951f940b9bb993c6b26fdde57d63c21d96b9ea668f2f853446a
+                   (64 hex = 32 bytes; idéntico en cada reto)
+     iterations  = 500
+
+3) HALLAZGO: el router REAL rota el token CSRF en la respuesta del
+   challenge (header __RequestVerificationToken de 32 chars). El
+   firmware MODDEADO (webui_full, 11.195) NO lo hace — por eso el
+   mock original no lo replicaba. login_scram() lo maneja igual
+   (getTokenFromHeader v[:32]); test_scram.py actualizado para
+   rotar también en el challenge -> TODOS LOS CHECKS OK.
+   (Sin adoptar la rotación, el authentication_login responde 125003,
+   no 108006: verificado en vivo.)
+
+4) Con el token rotado y el proof correcto (algoritmo 1:1 de
+   scram.js/main.js en vivo), authentication_login responde:
+     <error><message></message><count>1</count><code>108006</code></error>
+   -> PRUEBA RECHAZADA. La clave del sticker NO es la contraseña
+   actual del router.
+
+CONSECUENCIA
+---------------------------------------------------------------------
+- La matemática SCRAM quedó verificada contra el router REAL (ya no
+  hay ambigüedad de 108006): si el proof fuera incorrecto, el flujo
+  jamás habría llegado a 108006 con count=1 tras adoptar la rotación.
+- state-login devuelve firstlogin=1 -> este WebUI ya tuvo logins
+  -> la contraseña admin fue CAMBIADA respecto al sticker (provisión
+  de Entel, técnico o dueño anterior).
+
+QUÉ HACER (las 2 vías)
+---------------------------------------------------------------------
+A) Restablecimiento de fábrica del router (botón reset ~10 s hasta
+   que parpadeen los LEDs): devuelve la contraseña WebUI al valor del
+   sticker. Resetea Wi-Fi/APN (reconfigurar). El SIM-lock NO se toca
+   (vive en la NVRAM del módem; por eso hace falta NCK/flasheo) -> los
+   2 intentos de desbloqueo siguen intactos. Después:
+       python sesion_b612.py --password '210322Cd..'
+B) Conseguir la contraseña real: si el dueño anterior/Entel la cambió,
+   pedirla o resetear. NO probar variantes al azar: tras ~5 fallos el
+   router bloquea el login 1-2 min (temporal), y nada de esto toca los
+   intentos NCK.
+
+Fallos de login acumulados en la ventana: 1 (count=1 en la última
+respuesta); el 125003 del diagnóstico no cuenta como fallo de clave.
+=====================================================================

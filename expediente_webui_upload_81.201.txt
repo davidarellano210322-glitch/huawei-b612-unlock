@@ -1,0 +1,148 @@
+=====================================================================
+ EXPEDIENTE RONDA: EL MECANISMO REAL DEL UPDATE LOCAL + HERRAMIENTA LISTA
+ Fecha: 2026-08-12  |  Router: B612s-51d  |  IMEI: 864596030624094
+=====================================================================
+
+CONTEXTO
+- El router NO estaba conectado a la red durante esta ronda (192.168.8.1
+  muerto; 192.168.1.1 resultó ser un router TP-Link del hogar).
+- Trabajo 100% offline: análisis del firmware Mod3-9/11.195 ya extraído
+  y del JS del WebUI completo, más verificación del paquete preparado.
+
+---------------------------------------------------------------------
+1) DESCUBRIMIENTO CLAVE: EL MECANISMO QUE USA inst_webui
+---------------------------------------------------------------------
+El WebUI COMPLETO (extraído del firmware 11.195 modded, webui_full/)
+sí tiene la página real de update local (update_local.html + update_local.js).
+Su mecanismo es:
+
+  1. El usuario elige archivo .zip/.bin → el JS pone el campo oculto
+     cur_path = "OU:" + <nombre del archivo>  ("OU" = Online Update)
+  2. Al pulsar "Actualizar", hace POST multipart a:
+        /api/filemanager/upload
+     con:
+        csrf_token = "csrf:" + <token de api/webserver/token>
+        cur_path   = "OU:<archivo>"
+        uploadfile = <el archivo>
+  3. La respuesta debe contener "ok" (si no, falló).
+  4. Luego hace polling de:
+        /api/monitoring/check-notifications  → OnlineUpdateStatus
+        /api/online-update/status            → CurrentComponentStatus
+     códigos: 10 idle · 20 fallo · 30/40/50/52 descargando/listo ·
+     60 instalando · 70/80 fallo · 90/100 éxito.
+
+CONCLUSIÓN: la herramienta "WEB UI Exe setup" (inst_webui_2019-08-01.rar)
+NO hace nada mágico: replica este POST multipart al handler de subida
+del WebUI. Y en las rondas anteriores ESTE endpoint NUNCA se probó:
+el barrido (endpoints_b612.py) solo hizo GET con las rutas que aparecían
+en el JS del router Entel (stripped), y la lista de uploads probados
+(/, /update, /api/update/upgrade-file, /cgi-bin/upgrade, /upload)
+no incluye /api/filemanager/upload.
+
+---------------------------------------------------------------------
+2) HERRAMIENTA NUEVA: webui_update.py (reemplaza a inst_webui)
+---------------------------------------------------------------------
+Replica el mecanismo completo en Python (sin depender del .exe):
+
+    python webui_update.py                    # sube el zip preparado
+    python webui_update.py --probe            # ¿vive el handler?
+    python webui_update.py --file ruta.zip    # otro archivo
+    python webui_update.py --host 192.168.1.1 # IP distinta
+
+Flujo: SesTokInfo → login admin/admin → verificación previa (simlock,
+estado online-update) → POST multipart a /api/filemanager/upload con
+csrf_token=csrf:<token> y cur_path=OU:<zip> → polling de estado.
+
+PROBADO contra un servidor mock (respuestas XML idénticas a las del
+router): sesión, login, subida con el multipart correcto y polling
+funcionan end-to-end.
+
+---------------------------------------------------------------------
+3) PAQUETE VERIFICADO
+---------------------------------------------------------------------
+B612-51d_UPDATE_81.201.01.01.234_M_AT_V3.9_para_web.zip (41 MB):
+  - B612_UPDATE_81.201.01.01.234_sec_M_AT_V3.9.bin (66 MB, md5
+    d4d65d32065af688a9999410202a235b) — cabecera B612__1:81.201.01.01.234
+  - ReleaseDoc/ (Release Notes + Virus Scan Report)
+  Layout estándar que acepta update_local (zip con .bin + ReleaseDoc).
+
+---------------------------------------------------------------------
+4) CONFIRMACIÓN DEL FLUJO 4PDA (por qué importa el orden)
+---------------------------------------------------------------------
+Post del hilo (usuario que flasheó todo): "from 11 mod to 81.201 mod
+patch 3.9 first the original 81.201 then again update local webui then
+flash the 81.201 mod — you always have to do that".
+
+O sea: si el update local web por api/filemanager/upload funciona, el
+orden correcto es:
+  1) flashear original 81.201 (USB/balong), o subirlo por web,
+  2) update local del WebUI,
+  3) flashear el Mod3-9.
+El WebUI NO cambia solo con flashear el mod: hay que actualizarlo aparte.
+Esto explica por qué los intentos web anteriores con el mod directo
+fracasaban: además del modelo B612__0 vs B612__1, faltaba el paso del
+WebUI.
+
+---------------------------------------------------------------------
+5) PLAN DE ACCIÓN ACTUALIZADO (con el router enchufado)
+---------------------------------------------------------------------
+  1. Conectar la PC al router por cable LAN (192.168.8.1).
+  2. PRIMERO:  python webui_update.py --probe
+     - Si "Handler VIVO": el camino web está abierto →
+       python webui_update.py  (sube el zip Mod3-9)
+     - Si "MUERTO (100003)": la build Entel C110 arrancó también este
+       handler → la web está cerrada definitivamente → vía USB.
+  3. Si la subida se acepta pero luego el estado da 20/70/80 (fallo):
+     el paquete fue rechazado en validación. Reintentar con el ORIGINAL
+     81.201 (no el mod) primero y después el mod (flujo 4PDA).
+  4. Si todo falla por web: kit_flasheo por USB (única vía probada
+     para el -51d) o NCK Entel 800 367 626 (gratis, IMEI a mano).
+
+DESCARGA del inst_webui original (por si acaso): canal Telegram
+t.me/huaweiunlock, mensaje #49: inst_webui_2019-08-01.rar (572 KB,
+tags #B612 #Tf-i60 #i60). Es un .exe de Windows que hace lo mismo
+que webui_update.py; no aporta nada extra salvo la interfaz.
+
+---------------------------------------------------------------------
+6) RESULTADO EN VIVO (router conectado por cable, 2026-08-12)
+---------------------------------------------------------------------
+Probado en el router real en 192.168.8.1 (sesión admin OK):
+
+  - PROBE /api/filemanager/upload:
+      GET  -> 100003
+      POST (multipart csrf+cur_path=OU:probe.txt) -> 100003
+  - SUBIDA REAL del zip Mod3-9 (39.4 MB) a /api/filemanager/upload:
+      HTTP 200, <error><code>100003</code></error> en 0 segundos
+      -> rechazado en la capa de ruteo, el archivo ni se almacena.
+  - Barrido de 15 endpoints de subida alternativos (GET+POST con
+    multipart correcto): TODOS 100003.
+      (/api/upgrade/*, /api/update/*, /api/device/upgrade,
+       /api/system/upgrade, /upload, /cgi-bin/upgrade, ...)
+  - Mecanismo online-update (vivo pero inutilizable):
+      status -> CurrentComponentStatus=13 (QUERY_FAILED)
+      url-list -> 100001 (no hay servidor: el router NO tiene WAN,
+                  el chip WOM no registra red por el bloqueo)
+      check-new-version / ack-* / cancel-downloading -> 125003
+      configuration -> solo lectura, NO expone URL de servidor
+      forceupdate-config -> 100003
+  - Puertos: solo 53/80/443 abiertos. NADA en 54321 (servicio de
+    update local del config), ni 5555 (adb), ni 23/5510 (telnet).
+
+VEREDICTO EN VIVO: la vía web está CERRADA de forma definitiva en la
+build Entel C110. Ni siquiera el mecanismo que usa inst_webui existe
+en este firmware (el handler filemanager/upload fue arrancado junto
+con todos los demás). El router ni siquiera puede usar online-update
+porque no tiene conexión WAN (el bloqueo impide registrar el chip).
+
+QUÉ QUEDA (las 2 únicas llaves reales):
+  A) Flasheo USB con kit_flasheo (M_AT + AT^NVWREX=8268) — la vía
+     probada para el -51d, sin gastar intentos.
+  B) NCK de Entel: 800 367 626, IMEI 864596030624094 (gratis, ley
+     chilena). Con el código: python ingresar_codigo.py <código>.
+
+Los 2 intentos de desbloqueo siguen intactos (SimLockRemainTimes=2):
+ninguna prueba de esta ronda los gastó.
+
+ADVERTENCIA: con SimLockRemainTimes=2 NUNCA probar códigos al azar.
+El update web NO gasta intentos de desbloqueo.
+=====================================================================

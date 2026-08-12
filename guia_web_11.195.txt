@@ -1,0 +1,95 @@
+=====================================================================
+ GUÍA: REINTENTO DE ACTUALIZACIÓN LOCAL — Huawei B612s-51d (Entel)
+ Firmware: B612-25d_UPDATE_11.195.03.00.00_M_AT.zip  (verificado ✅)
+=====================================================================
+
+ANTES DE EMPEZAR (2 minutos)
+---------------------------------------------------------------------
+1. Desenchufa el router de la corriente y espera 30 segundos.
+   (Esto limpia el estado de "actualización urgente" pendiente que
+   quedó del intento anterior y que hace fallar la local.)
+2. Enchufa de nuevo y espera 1-2 min hasta que las luces estén estables.
+3. Conecta la PC al router por CABLE ETHERNET (puerto LAN). Nada de Wi-Fi:
+   el archivo pesa 74 MB y un corte en la subida = archivo a medias = error.
+4. Desactiva temporalmente el Firewall de Windows y el antivirus.
+   (Windows + antivirus a veces bloquean la subida grande por HTTP.)
+5. Confirma que la PC quedó en la red 192.168.8.x:
+   - Abre CMD y escribe:  ipconfig
+   - Tiene que aparecer algo como IPv4 192.168.8.100, puerta de enlace 192.168.8.1
+6. Ten el archivo a mano (NO lo descomprimas, se sube el ZIP completo):
+   C:\Users\davis\Downloads\Telegram Desktop\B612-25d_UPDATE_11.195.03.00.00_M_AT.zip
+
+CLIC POR CLIC (en la web)
+---------------------------------------------------------------------
+1. Abre Chrome/Edge en modo incógnito (Ctrl+Shift+N).
+2. Ve a:  http://192.168.8.1
+3. Entra con:  Usuario: admin   |   Contraseña: admin
+4. Pestaña "Ajustes" (o "Configuración") arriba a la derecha.
+5. Menú lateral: "Sistema" → "Actualización de software".
+   (En algunas versiones: Ajustes → Sistema → Actualización.)
+6. ARRIBA EN ESA PÁGINA: busca el interruptor "Actualización automática"
+   (o "Actualización automática de software") y DESACTÍVALO.
+   Importante: si no lo apagas, el router puede lanzar solo la
+   "actualización urgente" de Entel durante el proceso y volver a fallar.
+7. En la sección "Actualización local" (local update):
+   - Clic en "Seleccionar archivo" / "Examinar".
+   - Elige EL ZIP:
+       B612-25d_UPDATE_11.195.03.00.00_M_AT.zip
+     (sube el ZIP, NO el .bin suelto que está en M_AT_para_instalar)
+8. Clic en "Actualizar" (o "Update").
+9. A partir de acá NO toques nada:
+   - Se verá la barra de progreso de la subida (0% → 100%, unos minutos).
+   - Después el router se reinicia solo (luces parpadean).
+   - Espera 5-10 minutos SIN cerrar el navegador, SIN desconectar el cable,
+     SIN quitar la corriente.
+10. Después del reinicio, la dirección web PUEDE CAMBIAR (firmware genérico):
+     Prueba en este orden: 192.168.8.1  →  192.168.1.1  →  192.168.0.1
+     (Si la PC no toma IP nueva: desenchufa/enchufa el cable o renueva
+     con  ipconfig /release  y  ipconfig /renew)
+11. Verifica el resultado en "Inicio" o "Información del dispositivo":
+     - Versión de software:  11.195.03.00.00   (ya NO 11.192.00.00.110)
+     - WebUI:                 21.100.41.00.03
+     - El idioma pasa a INGLÉS (es normal, es firmware genérico C00).
+
+QUÉ VER SI FUNCIONA
+---------------------------------------------------------------------
+- Subida con porcentaje hasta 100%, luego mensaje tipo:
+  "Updating... Do not power off the device" / "El router se está actualizando".
+- El router se reinicia solo y al volver la versión es 11.195.03.00.00.
+- Ya con eso instalado: corre el desbloqueo por telnet (telnet+adb vienen
+  dentro del firmware):
+      python desbloquear_b612.py
+  (desde la carpeta "herramienta de desbloque"; el script prueba
+  192.168.8.1 y 192.168.1.1, puertos 23 y 5510, y envía el comando
+  atc at^nvwrex=8268,0,12,1,0,0,0,2,0,0,0,a,0,0,0 )
+- Luego apaga/enciende el router y pon la SIM de la otra compañía.
+
+QUÉ VER SI SIGUE BLOQUEADO (y qué significa cada caso)
+---------------------------------------------------------------------
+a) "No fue posible instalar la actualización" a los 5-10 segundos,
+   ANTES de cualquier barra de progreso:
+   → El paquete fue rechazado en la validación. Es la build Entel C110
+     bloqueando firmware genérico. La vía web está cerrada para este
+     router; toca USB (kit_flasheo) o NCK con Entel (800 367 626).
+b) "No fue posible instalar la actualización" DESPUÉS de subir al 100%:
+   → La subida llegó bien pero la validación falló igual. Mismo caso que (a).
+c) El archivo sube y el router se reinicia, pero vuelve a
+   11.192.00.00.110:
+   → Instaló y revirtió (verificación de firma en el arranque). Mismo caso.
+d) La subida se corta / "Error de carga" a mitad:
+   → Problema de red, no del firmware. Revisa cable, firewall/antivirus,
+     y reintenta desde el paso "ANTES DE EMPEZAR".
+e) "La versión del archivo es anterior a la actual":
+   → No debería pasar (11.195 > 11.192). Si sale, el WebUI está comparando
+     raro; reinicia el router y reintenta.
+
+ADVERTENCIAS FINALES (importantes)
+---------------------------------------------------------------------
+- NO hagas factory reset después del desbloqueo (la NVRAM queda marcada
+  y pierdes conexión — lo reportó gonzalo bahia con este mismo router).
+- Si el intento web falla por (a)/(b)/(c): es definitivo, no insistas con
+  otros zips ni con la "actualización urgente" (esa descarga del servidor
+  de Entel, que ya no existe).
+- Plan B sin flashear: pedir el NCK gratis a Entel (800 367 626) con el
+  IMEI 864596030624094 — por ley chilena te lo deben dar.
+=====================================================================

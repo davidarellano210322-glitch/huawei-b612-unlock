@@ -1,0 +1,30 @@
+================================================================================
+ HISTORIAL Y DOCUMENTACIÓN DE AVANCES — INVESTIGACIÓN HUAWEI B612s-51d
+================================================================================
+
+Toda la investigación, diagnósticos, ingeniería inversa, bitácoras de pruebas
+y guías de desbloqueo han sido estructuradas y documentadas en la carpeta:
+
+  📂 documentacion/
+     ├── README.md                              (Resumen ejecutivo y mapa del proyecto)
+     ├── 01_ESTADO_DEL_DISPOSITIVO.md           (Ficha técnica, IMEI, firmware C110, SCRAM)
+     ├── 02_ANALISIS_REVERSE_ENGINEERING.md     (Desmontaje unlock_v7r11, algoritmos V5, NVRAM)
+     ├── 03_AUDITORIA_WEBUI_Y_ENDPOINTS.md      (Auditoría 40+ endpoints, error 100003)
+     ├── 04_GUIAS_DE_DESBLOQUEO_VIABLES.md      (Guía Testpoint USB + Vía Legal NCK Entel)
+     ├── 05_CATALOGO_SCRIPTS_HERRAMIENTAS.md    (Documentación de scripts en Python)
+     ├── 06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md (Bitácora cronológica paso a paso)
+     └── 07_FUENTES_Y_REFERENCIAS.md            (Créditos 4PDA, Capa9, Subtel, UCSC)
+
+================================================================================
+ DATOS CLAVE DE RESUMEN
+================================================================================
+• Modelo: Huawei B612s-51d (Chipset HiSilicon Balong 711 / V7R11)
+• IMEI: 864596030624094
+• Firmware: 11.192.00.00.110 (Entel Chile CUST-B00C110)
+• Estado SIM-Lock: Bloqueado (SimLockEnable=1, SimLockVersion=5)
+• Intentos NCK Restantes: 2 intentos (¡CRÍTICO! No probar códigos al azar)
+• Veredicto Web: Cerrado (endpoints de upload stripped retornan 100003)
+• Veredicto Calculador V5: Inexistente en local (códigos en BD interna de Entel)
+• Solución 1 (Hardware): Modo Aguja (Testpoint) -> usbsafe -> Balong Flash M_AT -> Telnet AT^NVWREX
+• Solución 2 (Legal): Solicitud gratuita de NCK a Entel (800 367 626) amparado por ley Subtel.
+================================================================================

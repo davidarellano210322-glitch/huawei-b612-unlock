@@ -1,0 +1,56 @@
+
+=== MONITOR INICIADO 2026-08-12T14:12:01.152663 ===
+1786558321 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558323 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558326 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558328 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558330 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558332 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558334 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558336 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558338 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558341 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558343 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558345 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558347 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558349 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558351 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558353 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558355 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558358 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558360 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558362 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558364 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558366 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558368 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558370 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=0  ] mon[Conn=902]
+1786558378 conv[SimState=257 SimLockEnable=0] simlock[Enable=0 Remain=10] plmn[State=? ? ?] mon[Conn=?]
+1786558400 router-no-responde (reiniciando?)
+1786558408 sin-sesion (router apagado/reiniciando?)
+1786558416 sin-sesion (router apagado/reiniciando?)
+1786558424 sin-sesion (router apagado/reiniciando?)
+1786558432 sin-sesion (router apagado/reiniciando?)
+1786558440 sin-sesion (router apagado/reiniciando?)
+1786558448 sin-sesion (router apagado/reiniciando?)
+1786558456 sin-sesion (router apagado/reiniciando?)
+1786558464 sin-sesion (router apagado/reiniciando?)
+1786558472 sin-sesion (router apagado/reiniciando?)
+1786558480 sin-sesion (router apagado/reiniciando?)
+1786558488 sin-sesion (router apagado/reiniciando?)
+1786558496 sin-sesion (router apagado/reiniciando?)
+1786558504 sin-sesion (router apagado/reiniciando?)
+1786558512 sin-sesion (router apagado/reiniciando?)
+1786558520 sin-sesion (router apagado/reiniciando?)
+1786558528 sin-sesion (router apagado/reiniciando?)
+1786558536 sin-sesion (router apagado/reiniciando?)
+1786558544 sin-sesion (router apagado/reiniciando?)
+1786558552 sin-sesion (router apagado/reiniciando?)
+1786558560 sin-sesion (router apagado/reiniciando?)
+1786558568 sin-sesion (router apagado/reiniciando?)
+1786558576 sin-sesion (router apagado/reiniciando?)
+1786558584 sin-sesion (router apagado/reiniciando?)
+1786558592 sin-sesion (router apagado/reiniciando?)
+1786558600 sin-sesion (router apagado/reiniciando?)
+1786558608 sin-sesion (router apagado/reiniciando?)
+1786558616 sin-sesion (router apagado/reiniciando?)
+1786558624 sin-sesion (router apagado/reiniciando?)

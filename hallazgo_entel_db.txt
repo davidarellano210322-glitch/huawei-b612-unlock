@@ -1,0 +1,46 @@
+===================================================================
+ HALLAZGO CLAVE: EL CÓDIGO EXISTE — ESTÁ EN LA BD DE ENTEL
+===================================================================
+
+Encontré el instructivo OFICIAL de Entel para el B612 ("Habilitación
+BAM B612", publicado por la UCSC para sus estudiantes):
+
+   https://sitios.ucsc.cl/dae/wp-content/uploads/sites/31/2020/05/
+   INSTRUCTIVO-HABILITACIÓN-BAM-B612.pdf
+
+Qué revela (paso 1 del instructivo):
+   - El código de desbloqueo del B612 se obtiene ingresando el IMEI
+     en una página web de Entel (dpeleors.sibpages.com — hoy caída)
+     o desde un Excel interno de Entel ("entéraT").
+   - Es decir: ENTEL TIENE EL CÓDIGO DE CADA IMEI EN SU SISTEMA.
+     No se calcula: se consulta por IMEI.
+
+Confirmaciones adicionales:
+   - Un usuario (capa9, 2021) confirmó que la página de Entel cayó
+     y pidió que alguien compartiera el Excel con los códigos.
+   - Otro usuario (Checho924) contó que su B612 de Entel funcionó
+     con SIM de Movistar sin drama -> ALGUNOS B612 venían liberados,
+     pero el nuestro está bloqueado (verificado: SimLockEnable=1).
+   - La comunidad (capa9, 2022): "En eBay venden códigos de
+     desbloqueo, valen como 3-4 dólares y si no funciona te
+     reembolsan".
+
+Qué significa para el caso (IMEI 864596030624094):
+   1. El código CORRECTO existe en la BD de Entel para este IMEI.
+   2. La única forma de obtenerlo: pedirlo a Entel (gratis, por ley)
+      o comprarlo a un vendedor con acceso a esas BD.
+   3. NINGÚN cálculo local es posible: el módem lo valida con un
+      secreto interno (probado en el firmware, ver
+      expediente_firmware_m_at.txt).
+
+PLAN EN ORDEN:
+   A) Entel gratis: llamar al 800 367 626, IMEI 864596030624094,
+      pedir "código de desbloqueo de red (NCK) del módem B612".
+      Por normativa de Subtel el desbloqueo de equipos es sin costo.
+      Si se niegan: pedir negativa por escrito y reclamar en Subtel.
+   B) Respaldo: vendedor online (eBay) de códigos B612 (~US$3-4,
+      reembolso si no funciona). OJO: solo 2 intentos disponibles;
+      un código equivocado gasta 1.
+   C) Autónomo: flasheo USB del M_AT (kit_flasheo) -> NVRAM
+      (AT^NVWREX=8268) sin gastar intentos.
+===================================================================

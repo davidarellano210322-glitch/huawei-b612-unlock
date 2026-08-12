@@ -1,0 +1,283 @@
+##### PAGINA pg15 #####
+
+----- POST 0 -----
+Huawei B612s TD-LTE Modem Router – обсуждение » 
+ltemodem ltemodem
+Описание
+
+----- POST 1 -----
+Undertaker39! @ 18.04.21, 13:39 11.195.03.00.1445 Mod is e top too! !)
+
+----- POST 2 -----
+Ok but web changes with this firmware 11.195 try times with 192.168.0.1 or 192.168.1.1 or 192.168.8.1 whether you have lost the firmware?
+I always flash each firmware via balong and then always again the same firmware via local update so that webui is also correct!
+if with you any firmware works with 51d then take the 81.201 mod 3.9 or 11.197.03.00.00 or the originals 81.201 or original 11.196 irancell are all very good but also the 11.195.03.00.1445 is great for fdd! I also have a special mod 11.197 that I can send you via p.n. send and a 11.196 + mod webui
+
+----- POST 3 -----
+This is Router Model B612 233 i Try To decode him First the router is up to recovery mode but the usbsafe of b612 25d not compatible with him he wasn't go any idea to unlock this router
+https://e.top4top.io/p_19346ckuj1.jpg
+https://f.top4top.io/p_1934nuk512.jpg
+https://g.top4top.io/p_1934jorfy3.jpg
+Прикрепленные изображения
+
+----- POST 4 -----
+B612-233 No Flash Methode ! Sorry
+
+----- POST 5 -----
+Carrier list ;) 
+https://www.imei.info/carriers/
+What is the 1261 or 751 config ?? Carrier ?
+Сообщение отредактировал Undertaker39! - 19.04.21, 14:39
+
+----- POST 6 -----
+Undertaker39!,
+When I perform a factory Reset, the internal memory lost and the device enter into a boot loop, but I solved that flashing again 
+Please send me via PM the firmware :)
+
+----- POST 7 -----
+Thanks To @MindPlzDont
+благодаря @MindPlzDont
+atc AT^VERSION=INI,B612s-25dCUST-B01C00
+;)
+
+----- POST 9 -----
+javieracdc, 
+You also have to install all the drivers, including the huawei drivers. Flashing the firmware takes about 10 minutes because if you are done flashing in 1 minute, it is not correct! For all please Flash takes about 10 minutes if it only takes 1 minute you have not installed the driver correctly! Then bootloop can also occur if the flash lasts for at least 1 minute!
+Прикрепленные изображения
+
+----- POST 10 -----
+If you want to have the originals 81.201.01.01.234 you first have to install the 11.196.01.01.234 and then do an online update but wait until the 81.201 is offered, don't update the 81.198 because there are errors! or if the original 11,196 is on it with flash to 81,201 then ca and mimo should be included with the original file!
+11.196.01.01.234 and 81.201.01.01.234 + 11.195.03.00.1445 purple mod are the best firmwares that are all tested!
+The most popular is the original 11.196.01.01.234 and is one of the best firmware at TDD
+If necessary, you can also change the CUST to B00 or B234!
+I am now using 11.195.03.00.1445 purple mod (netwiz) because of FDD volume 1 + 3, I will add it in the next few days for network three
+
+----- POST 11 -----
+People Important Information!
+I flashed all the software a lot and tried a lot! If you flash new software you always have to give the originals beforehand or 00.00.00 universal on it what you want via flash then again the originals via webui and only then flash the mod otherwise the webui will not change! example photo you have the 81.201 on it and then flash the e.g. the 11.195.03.00.00 mod or 1445 mod does not change webui! see image !
+e.g. first flash the original 1445 then again via webui update original 1445 then only mod 1445 flash then webui is ok!
+or e.g. from 11 he mod to 81.201.01.01.234 mod patch 3.9 first the original 81.201 then again update local webui then flash the 81.201 mod
+you always have to do that regardless of the firmware
+with original firmware is flash ok and then again via local ok without mod firmware
+ok people you understood that
+picture was original 81.201 on 11.195.03.00.1445 mod purple but webui is not true
+Прикрепленные изображения
+
+----- POST 13 -----
+B612+B618 Webui 
+11.195.03.00.00 V2 
+11.195.03.00.00 V3 
+11.195.03.00.00 Mod new
+Добавлено 25.04.2021, 11:19:
+B612+B618 11.196.01.01.234
+https://s9.picofile.co…1_01_234_b618.exe.html
+;)
+Прикрепленные изображения
+
+----- POST 14 -----
+But only the original 11.196.01.01.234 and Mobinet original 11.196-197 and originals 81.201.01.01.234 can real ca and real mimo 4x4 otherwise no firmware
+Good Look !
+Hmanager ;) Android ! ;)
+https://www.cellmapper…ime_Startup/de?lang=de
+https://www.senderkataster.at/
+P.s. 
+Web UI hack for firmware 81xx
+LEDs switch off. IDEAL When the lights bother you at night!
+With this script you can unlock more hidden options.
+In particular VOIP, VLAN is interesting as well, for example, that there is now the possibility of switching off the LEDs Time-controlled and other displays and optimizations as listed below ... Not all functions are also available or usable for the B715, as they are also available for other Huawei models applicable.
+Install the Violentmonkey APP for your browser
+Open this link
+https://github.com/iN4…-CPE-Pro-2-Mod.user.js
+Then the Violentmonkey opens where you can add the script. Update the Web UI and enjoy further settings and features
+Прикрепленные изображения
+
+----- POST 15 -----
+Mimo can only be used with these 4x4 mimo tapes
+B3/B7/B20/B38/B40/B41/B42/B43
+Good Look 
+Ca can use Lte tapes
+Прикрепленные изображения
+
+----- POST 16 -----
+Cool Perfect B612-25d To TF-i60 
+;);) Pictures Look 
+Cool ;) ;) 
+atc AT^VERSION=INI,TF-i60CUST-B00C00
+atc AT^VERSION=INI,TF-i60CUST-B00C234
+atc AT^VERSION=INI,B612-25dCUST-B00C00
+Прикрепленные изображения
+
+----- POST 17 -----
+Undertaker39! @ 25.04.21, 13:01 only the original 11.196.01.01.234 and Mobinet original 11.196-197 and originals 81.201.01.01.234 can real ca and real mimo 4x4 otherwise no firmware
+
+----- POST 18 -----
+my original photos screenshots - my Board HF Version A (Emtel) CustB00C93 ! WL1B612SW ! 
+where P30 is P30 forum is the picture
+Ok the first above is with Mimo 4x4, the second without ca only B3 and the rest below all with ca B7 + B3 Ca
+11,196 my B1 fdd can unfortunately but then try again with 81,201
+also in the P30 forum picture it was already confirmed with ca umd irancell mtn has also confirmed it but with a normal huawei firmware ca not possible! only with Mtn irancell and mobinet
+what else should i test?
+am all firmwares through
+At the moment our networks are overloaded and problems with three unfortunately three confirmed they are working on them! Channel !
+Cat 6 must be able to do approx because my mf282 + can also do approx with Cat 6!
+with 81,201 mod 3.9 also works B3 + B1 see my posts on other pages before!
+I have transmitter B1 + B3 + B7 + B20 here! Mtn irancell also has B1,B3 ,B7, B8,B42 And Lte A ;)
+here another page
+https://shabakehchi.co…ware-modem-b612-tf-i60
+Update : 
+with 81,201 original
+ca only works in FDD mode, not TDD
+it works a few times with purple mod
+Original firmware from huawei no ca or mimo 4x4 possible
+Update 
+FDD 3 + 7 is always 4G + CA all other bands no 4G + to see and only with original 11.196.01.01.234 irancell + purple firmware! all other firmwares and original huawei cannot do that!
+mimo 4x4 does not work with volume 1 either, see description
+ca also works with Mod 3.9 irancell with volume 1 + 3;)
+have never reached band 7 with other router B612 is very strong and also reach band 7! one of the best routers! have an 80/20 tariff! Upload is extremely good with B612!
+Прикрепленные изображения
+
+----- POST 19 -----
+Undertaker39! @ 27.04.21, 07:05 my original photos screenshots
+
+----- POST 20 -----
+ok I'll do other tests with it but it must be about normal
+even my cat 6 mf282 + has approx!
+and with b618 i have never seen 4G + on the display either
+but B3 + B7 is certainly around B612
+keep testing ok!
+B1+B3 B612 81.201.01.01.234 Mod 3.9 ca 15/15 MHz Look 
+3. Picture 3Tube mf282+
+Прикрепленные изображения
+##### PAGINA pg17 #####
+
+----- POST 0 -----
+Huawei B612s TD-LTE Modem Router – обсуждение » 
+ltemodem ltemodem
+Описание
+
+----- POST 1 -----
+разблокировать только кодами, я так понимаю
+
+----- POST 2 -----
+Всем доброго утра. 
+ Приобрел этот модем, только вот на мегафоне он не хочет агрегацию включать, хотя телефоны пишут лте+, и в cellmapper на вышке есть две смежные частоты в 7м бэнде. Я конечно новичок, но чувствую где-то что-то работает неправильно, возможно кто-нибудь сталкивался с таким моментом? прошивка 11.192.05.00.00.
+
+----- POST 3 -----
+001 виктор 001, Тут единственно что можно предположить - поставить более свежий софт (например, B612s-25d_UPDATE_11.195.03.00.00) и что там с показателями сигнала...
+А так у 612 очень грустно в плане агрегаций... 
+LTE Cat6 4*4 MIMO，FDD 300/50Mbps@20MHz，TDD 220/10Mbps@20MHz
+Поддерживаемые агрегации B612s-25d:
+3C (3+3)
+7C (7+7)
+20C (20+20)
+38C (38+38)
+40C (40+40)
+41C (41+41)
+42C (42+42)
+43C (43+43)
+Сообщение отредактировал e-dok - 22.11.21, 08:31
+
+----- POST 4 -----
+e-dok @ 22.11.21, 08:27 А так у 612 очень грустно в плане агрегаций...
+
+----- POST 5 -----
+e-dok @ 22.11.21, 08:27 поставить более свежий софт
+
+----- POST 6 -----
+I am from Chile and I have an Entel b612-51d , with local update option firmware, what firmware do you recommend
+Сообщение отредактировал gonzalobahia - 15.01.22, 16:54
+
+----- POST 7 -----
+Привет
+можно ли залочить на конкретный pci, диапазон и частоту на b612?
+
+----- POST 8 -----
+safere, Наработки для моделей 618 и 715 должны работать и на 612
+ ---> 
+Huawei B715 4G LTE CAT9 – обсуждение (Пост rust3028 #110698211)
+--->
+Huawei B715 4G LTE CAT9 – обсуждение (Пост e-dok #102689106)
+Сообщение отредактировал e-dok - 17.01.22, 19:41
+
+----- POST 9 -----
+e-dok, 
+к сожалению, оба они не работали и модем не привязан к конкретному PCI. модем переключается на другие PCI и частоты случайным образом.
+Кроме того, этот код дает ответ: Error в telnet: atc at^nvrd=53810
+
+----- POST 10 -----
+safere,
+ На 715 эта команда работает, на 618 нет.
+Личка как я понял у вас не работает..
+Какая прошивка / веб интерфейс используется?
+Что и как пытаетесь сделать?
+Что выдают команды -
+atc AT^LCELLINFO=0
+atc AT^LCELLINFO=1
+
+----- POST 11 -----
+e-dok @ 20.01.22, 16:41 На 715 эта команда работает, на 618 нет.
+Личка как я понял у вас не работает..
+Какая прошивка / веб интерфейс используется?
+Что и как пытаетесь сделать?
+Что выдают команды -
+atc AT^LCELLINFO=0
+atc AT^LCELLINFO=1
+
+----- POST 12 -----
+Привет снова дорогие друзья.
+можно ли использовать "openvpn" или "wireguard" на модеме b612-25d?
+
+----- POST 13 -----
+Привет
+Мне удалось скомпилировать ядро для B612s-25d на Ubuntu 20.04.
+у кого-нибудь есть исходный код для B612s-51d, я безуспешно искал на веб-сайте Huawei и в Интернете.
+Прикрепленные изображения
+
+----- POST 14 -----
+Hi there,
+I have an Irancell TF-i60 (H1) purchased 2 years ago from Aliexpress as a Huawei B612.
+I would like to upgrade the firmware to something better, as the current one is quite limited.
+From the settings page I can see the following details:
+Device name: B612s-25d
+Hardware version: WL1B612M01
+Software version: 11.192.05.00.00
+Web UI version: 21.100.31.00.03
+I have soldering iron, and material to flash via COM port, so this should not be a problem.
+Could anyone who has the knowledge let me know what firmware they would recommend?
+A simple and short description (bullet points) of the updating process step by step (what to do and what is required) would be much appreciated.
+The only way for me to read on this forum is to use google translate, hence I am finding some difficulties to understand the process.
+For what it is worth, my native tongue is Spanish, but I can understandEnglish well.
+Many thanks in advance.
+
+----- POST 15 -----
+Уважаемые клубни, всем мира и добра!
+С моего 152 поста прошло чуть более трёх лет. Пашет мой Иранский жеребец по сей день на перешитой тогда 81...Русскоязычной версии прошивке, радует:) За это время уже и ЖК телек 55" замурованной в стену витухой к нему прицепил, и в детской комнате системник второй витухой подцеплен, скоро ещё один телек на кухне приджоню, не считая телефонов и ноута... А порой и соседи по доброте моей душевной иногда прилипнут:) А моя "рабочая лошадка" исправно молча тянет, на радость всем нам.
+Руки зачесались, поиграться с ним захотелось снова. Прошился на "B612-UPDATE-81-201-01-01-234-sec-M-AT-Mod3-9", типа выбор MIMO4x4 режима появился (своими руками базы строил, теперь хочу и поюзать свои плоды). Итог - не цепляется к МегаВоневской паутине... Может прошивка под ...51d а не под мою 25 версию заточна, может луна не в той фазе сегодня. Лень копать. Возился, возился - плюнул! Вернулся обратно на что работало, ибо не трогай технику, пока она работает! Но! 
+Чёрт дёрнул сменить тайм зону на родную. И всё, всю голову сломал.
+Имейте ввиду! Изменение временной зоны оказывается очень сильно влияет на скорость передачи данных роутера!!!
+В общем, вернул тайм зону на те родные Иранские +3:30 и скорость взлетела обратно.
+Не подумал бы об этом.
+Имейте ввиду.
+Сообщение отредактировал CDJKuznets - 06.03.22, 22:43
+
+----- POST 16 -----
+Моё итоговое имхо - не трогай технику, пока работает
+
+----- POST 17 -----
+Как не мучился с новыми прошивками - оставил всё как было 3 года назад. NVram благо был. Вернул тогдашний серийник и прочие коды. Всё заработало как раньше, больше не полезу в него.
+
+----- POST 18 -----
+Добра всем!
+Прошил свой B612s-51d ( покупал у оператора Claro ). С прошивкой методом "иголки" проблем не возникло. Телнет и adb работают. Но скрипт от 525го для смены imei не меняет. Скрипт отрабатывает без ошибок но после перезагрузки старый imei на месте.
+Подскажите как поменять imei?
+
+----- POST 19 -----
+есть у кого бин(прошивка) для версии 52d?
+
+----- POST 20 -----
+ART994,
+B612s-51dTCPU-V100R001B192D00SP00C1029
+_Firmware_Jordan_Umniah_05014PTS.zip
+B612s-51dCUST-B00C1029
+_Firmware_Jordan_Umniah_05014PTR.zip
+Помогите, нужны эти файлы

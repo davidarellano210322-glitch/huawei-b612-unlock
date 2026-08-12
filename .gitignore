@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Entornos virtuales
+venv/
+env/
+.env
+
+# Archivos pesados y binarios de firmware (>40MB)
+*.zip
+*.rar
+*.bin
+*.sqsh
+
+# Carpetas temporales de descompresión / volcado
+webui_cpio/
+webui_flat/
+webui_full/
+pack_huawei/
+
+# Logs y temporales
+*.log
+.freebuff/
+
+
