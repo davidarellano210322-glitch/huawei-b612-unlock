@@ -10,22 +10,22 @@
 ```
 
 ### 🔓 Suite Integral de Auditoría, Ingeniería Inversa y Desbloqueo de Red (SIM-Lock V5)
-**Huawei 4G Router B612s-51d (Compilación CUST-C110 • Entel Chile)**
+**Huawei 4G Router B612s-51d (SoC HiSilicon Balong V7R5 / Hi6950 • Entel Chile CUST-C110)**
 
 ---
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-huawei--b612--unlock-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
-[![SoC](https://img.shields.io/badge/SoC-HiSilicon%20Balong%20711%20(V7R11)-7928CA?style=for-the-badge&logo=arm&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
+[![SoC](https://img.shields.io/badge/SoC-HiSilicon%20Balong%20V7R5%20(Hi6950)-7928CA?style=for-the-badge&logo=arm&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 [![Firmware](https://img.shields.io/badge/Firmware-11.192.00.00.110%20(C110)-FF8000?style=for-the-badge&logo=huawei&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 [![Security Level](https://img.shields.io/badge/Security-SIM--Lock%20Algorithm%20V5-E00?style=for-the-badge&logo=securityscorecard&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
+[![BootROM Exploit](https://img.shields.io/badge/BootROM-Secuboot%20Bypass%20(-x)-FF0055?style=for-the-badge&logo=gnu-bash&logoColor=white)](./documentacion/08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md)
 [![Cryptographic Auth](https://img.shields.io/badge/Auth-SCRAM--SHA256%20(RFC%205802)-00DF89?style=for-the-badge&logo=auth0&logoColor=black)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 [![Python Engine](https://img.shields.io/badge/Python-3.9%20|%203.10%20|%203.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
-[![Status](https://img.shields.io/badge/Status-Research%20Completed%20&%20Tools%20Ready-0070F3?style=for-the-badge)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 
 <br/>
 
-| [⚡ Inicio Rápido](#-inicio-r%C3%A1pido) | [📊 Telemetría en Vivo](#-telemetr%C3%ADa-y-estado-en-vivo) | [🔬 Ingeniería Inversa](#-an%C3%A1lisis-de-ingenier%C3%ADa-inversa) | [🚀 Métodos Viables](#-rutas-de-desbloqueo-100-verificadas) | [🗂️ Documentación](./documentacion/README.md) |
-| :---: | :---: | :---: | :---: | :---: |
+| [⚡ Inicio Rápido](#-inicio-r%C3%A1pido) | [📊 Telemetría en Vivo](#-telemetr%C3%ADa-y-estado-en-vivo) | [🔬 Ingeniería Inversa](#-an%C3%A1lisis-de-ingenier%C3%ADa-inversa) | [🧬 Exploit Secuboot](#-exploit-de-bootrom-secuboot-bypass-y-comparaci%C3%B3n-potatonv) | [🚀 Métodos Viables](#-rutas-de-desbloqueo-100-verificadas) | [🗂️ Documentación](./documentacion/README.md) |
+| :---: | :---: | :---: | :---: | :---: | :---: |
 
 ---
 
@@ -33,9 +33,9 @@
 
 ## 🎯 Resumen Ejecutivo y Alcance
 
-Este proyecto comprende una **auditoría integral de seguridad, telemetría en tiempo real, desensamblado binario y desarrollo de herramientas de bajo nivel** sobre el router 4G LTE **Huawei B612s-51d** bloqueado por defecto para la compañía **Entel Chile**.
+Este proyecto comprende una **auditoría integral de seguridad, telemetría en tiempo real, desensamblado binario, análisis de exploits de BootROM y desarrollo de herramientas de bajo nivel** sobre el router 4G LTE **Huawei B612s-51d** bloqueado por defecto para la compañía **Entel Chile**.
 
-El propósito central es dotar a la comunidad técnica y a los usuarios de una guía concluyente, libre de mitos, que permita desbloquear el dispositivo para su uso en redes celulares de operadores como **WOM, Movistar o Claro**, sin riesgo de dañar la partición NVRAM y sin agotar los intentos de desbloqueo.
+El propósito central es dotar a la comunidad técnica de una guía concluyente que permita liberar el dispositivo para su uso en redes celulares de operadores alternativos (**WOM, Movistar, Claro**) sin riesgo de dañar la partición NVRAM y sin agotar los intentos de desbloqueo.
 
 ---
 
@@ -44,7 +44,7 @@ El propósito central es dotar a la comunidad técnica y a los usuarios de una g
 ```mermaid
 flowchart TD
     %% Nodos Principales
-    Start(["📡 Router Huawei B612s-51d (Entel CUST-C110)"]) --> Scan["🔍 Sondeo & Telemetría en Tiempo Real"]
+    Start(["📡 Router Huawei B612s-51d (Balong V7R5 Hi6950)"]) --> Scan["🔍 Sondeo & Telemetría en Tiempo Real"]
     
     Scan --> State{"Diagnóstico Celular"}
     State -->|"SimLockEnable=1"| Locked["🔒 Bloqueo de Red V5 ACTIVO"]
@@ -59,7 +59,7 @@ flowchart TD
     V1 -->|"Auditoría 40+ Endpoints POST/GET"| V1_Res["❌ DESCARTADO: Error 100003<br/>Handler /api/filemanager/upload despojado en C110"]
     V2 -->|"Desensamblado de unlock_v7r11"| V2_Res["❌ DESCARTADO: No existe calculador matemático<br/>Los códigos NCK residen en la BD interna de Entel"]
     V3 -->|"Resolución Exenta Subtel Chile"| V3_Res["✅ VIABLE 100%: Solicitud Gratuita NCK<br/>Llamada al 800 367 626 + ingresar_codigo.py"]
-    V4 -->|"Testpoint BOOT + usbsafe + M_AT Firmware"| V4_Res["✅ VIABLE 100%: Flasheo USB Autónomo<br/>Bypass NVRAM vía Telnet AT^NVWREX sin tocar intentos"]
+    V4 -->|"Testpoint BOOT + usbsafe / Secuboot Bypass"| V4_Res["✅ VIABLE 100%: Flasheo USB Autónomo<br/>Bypass NVRAM vía Telnet AT^NVWREX sin tocar intentos"]
 
     %% Estilos de Nodos
     classDef default font-family:Inter,sans-serif;
@@ -83,7 +83,7 @@ Al insertar una tarjeta SIM del operador **WOM** en el router, los scripts de te
 ```ini
 [HARDWARE_INFO]
 Device_Model        = Huawei B612s-51d
-SoC_Architecture    = HiSilicon Balong 711 (Módem V7R11 ARM Embedded)
+SoC_Architecture    = HiSilicon Balong V7R5 (Hi6950 / V700R500C31B195)
 IMEI_Identifier     = 864596030624094
 Firmware_Version    = 11.192.00.00.110
 Carrier_Custom      = CUST-B00C110 (Entel Chile)
@@ -102,9 +102,49 @@ PLMN_Status         = ""   [Denegado acceso a red 73009 (WOM)]
 
 ---
 
+## 🧬 Exploit de BootROM (Secuboot Bypass) y Comparación PotatoNV
+
+### 📱 PotatoNV vs. Ecosistema Balong
+[PotatoNV](https://github.com/kitsuned/PotatoNV) es la reconocida herramienta de desbloqueo de bootloader para SoCs **Huawei Kirin** (teléfonos). Aunque PotatoNV no soporta directamente el chipset Balong, la filosofía de explotación es exactamente homóloga:
+
+```mermaid
+graph LR
+    subgraph KIRIN_PHONE [📱 Plataforma Kirin - PotatoNV]
+        K1[Testpoint VCOM] --> K2[Carga Bootloader Parcheado] --> K3[Escribe USRKEY en NVME]
+    end
+
+    subgraph BALONG_ROUTER [📡 Plataforma Balong - B612]
+        B1[Testpoint BOOT_3G] --> B2[Carga usbsafe-b612.bin] --> B3[Escribe Registro 8268 en NVRAM]
+    end
+
+    style KIRIN_PHONE fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    style BALONG_ROUTER fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+```
+
+### ⚡ El Exploit `balong-usbdload -x 4` (ValdikSS / forth32)
+El repositorio de bajo nivel [`forth32/balong-usbdload`](https://github.com/forth32/balong-usbdload) incluye el exploit **Secuboot Bypass (`-x`)** con soporte directo para la familia **Balong V7R5 (Hi6950)** de nuestro B612:
+
+```c
+// secuboot_exploit_v7r5() - forth32/balong-usbdload
+// Plataforma objetivo: Hi6950 (B612s, B618s, B715s)
+// Parchea 0x1001FFEC (SRAM) escribiendo 8 bytes de ceros -> ANULA LA VERIFICACIÓN DE FIRMA
+```
+
+### 🗄️ Base de Datos de Registros NVRAM (`balong-nvtool / nvid.c`)
+La ingeniería inversa de la comunidad (`Huawei-LTE-routers-mods`) documenta los ítems clave de la NVRAM:
+* **Item 8267:** `CustomizeSimLockPlmnInfo` (Lista de PLMNs autorizados).
+* **Item 8268:** `CardlockStatus` (**Registro exacto modificado por `AT^NVWREX=8268...`**).
+* **Item 8269:** `CustomizeSimLockMaxTimes` (Contador de intentos máximos).
+* **Item 8517:** `ENHANCE_SIMCARD_LOCK_STATUS` (Estado de bloqueo avanzado).
+* **Item 8518:** `GENHANCE_SIMCARD_REMAIN_TIMES` (Contador de intentos restantes).
+
+> Para un análisis profundo de este exploit y la estructura de SRAM, consulta [08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md](./documentacion/08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md).
+
+---
+
 ## 🔐 Protocolo Criptográfico SCRAM-SHA256 (HiLink V5)
 
-El firmware `11.192.00.00.110` descarta los métodos de login antiguos y obliga al uso de **SCRAM-SHA256** (**RFC 5802**). La suite incluye un cliente autónomo en Python ([`sesion_b612.py`](./sesion_b612.py)) que ejecuta el ciclo de autenticación:
+El router implementa autenticación estricta bajo la norma **RFC 5802** (**SCRAM-SHA256**). El cliente autónomo [`sesion_b612.py`](./sesion_b612.py) resuelve el handshake en dos fases:
 
 ```mermaid
 sequenceDiagram
@@ -132,61 +172,6 @@ sequenceDiagram
 
 ---
 
-## 🔬 Análisis de Ingeniería Inversa
-
-### 🧩 1. Desmontaje de la Utilidad `unlock_v7r11_2018-07-14.exe`
-Se realizó la extracción de la carga útil del binario mediante decompilación:
-* **Estructura Interna:** No contiene algoritmos matemáticos; es un empaquetado de *Indigo Rose Setup Factory*.
-* **Archivos Extraídos:** `bin/adb.exe`, `bin/AdbWinApi.dll`, `go.cmd`, `hideconsole.exe`.
-* **Script Real (`go.cmd`):**
-  ```bat
-  @echo off
-  bin\adb connect 192.168.8.1:5555
-  bin\adb shell busybox killall add_param
-  bin\adb shell "atc AT^NVWREX=8268,0,12,1,0,0,0,2,0,0,0,A,0,0,0"
-  bin\adb shell "echo -en 'AT^RESET\r' > /dev/appvcom1"
-  ```
-* **Conclusión:** La herramienta depende de tener el puerto ADB `5555` abierto (solo disponible en firmwares modificados `M_AT`).
-
-### 🧬 2. Comparativa de Algoritmos SIM-Lock (V1 a V5)
-
-| Generación | Algoritmo Criptográfico | Vectores de Ataque | Estado en B612s-51d |
-| :---: | :--- | :--- | :---: |
-| **V1** | Hash MD5 (`MD5(IMEI + Salt)`) | Calculable instantáneamente offline | ❌ No aplica |
-| **V2** | Hash SHA256 modificado | Calculable offline | ❌ No aplica |
-| **V3 / V201** | Algoritmo propietario híbrido | Calculable con `huaweicalc` (forth32) / `HMUC` | ❌ No aplica |
-| **V4 / V5** | **Criptografía asimétrica vinculada a hardware y Base de Datos del Operador** | **No derivable offline. Requiere bypass de NVRAM o consulta en BD de Entel** | **✅ ACTIVO EN ROUTER** |
-
----
-
-## 🛡️ Matriz de Auditoría de Endpoints HiLink
-
-Se auditaron más de 40 rutas de la API bajo sesión de administrador utilizando [`endpoints_b612.py`](./endpoints_b612.py):
-
-<details>
-<summary><b>🔍 Clic aquí para desplegar la tabla completa de endpoints auditados</b></summary>
-
-<br/>
-
-| Endpoint | Método | Estado HTTP | Código XML | Diagnóstico Técnico |
-| :--- | :---: | :---: | :---: | :--- |
-| `/api/webserver/SesTokInfo` | GET | `200 OK` | N/A | Generación de Cookie SessionID y Token CSRF |
-| `/api/user/challenge_login` | POST | `200 OK` | N/A | Negociación inicial SCRAM-SHA256 |
-| `/api/user/authentication_login` | POST | `200 OK` | `<response>OK</response>` | Validación y confirmación de sesión |
-| `/api/device/information` | GET | `200 OK` | Informacional | Versión de hardware, firmware e IMEI |
-| `/api/monitoring/status` | GET | `200 OK` | `ConnectionStatus: 902` | Estado de conexión y nivel de señal |
-| `/api/pin/simlock` | GET | `200 OK` | `SimLockRemainTimes: 2` | Estado de bloqueo de red y contador de intentos |
-| `/api/filemanager/upload` | POST | `200 OK` | `<code>100003</code>` | **Handler eliminado en build Entel C110** |
-| `/api/update/upgrade-file` | POST | `200 OK` | `<code>100003</code>` | No soportado por el webserver |
-| `/api/upgrade/upgrade-file` | POST | `200 OK` | `<code>100003</code>` | No soportado por el webserver |
-| `/api/online-update/status` | GET | `200 OK` | `CurrentComponentStatus: 13` | Estado QUERY_FAILED (Sin conectividad WAN) |
-| `/api/online-update/url-list` | GET | `200 OK` | `<code>100001</code>` | Servidor de actualización no disponible |
-| `/api/vsim/operateswitch-vsim` | POST | `200 OK` | `<code>100003</code>` | Módulo de SIM Virtual deshabilitado |
-
-</details>
-
----
-
 ## 🚀 Rutas de Desbloqueo 100% Verificadas
 
 ### 🛠️ RUTA A: Flasheo USB por Testpoint (Método de la Aguja)
@@ -197,11 +182,11 @@ Se auditaron más de 40 rutas de la API bajo sesión de administrador utilizando
    ┌────────────────────────────────────────────────────────────────────────┐
    │                     ESQUEMA DE TESTPOINT (MODO BOOT)                   │
    │                                                                        │
-   │   [ PCB Huawei B612 ]                                                  │
+   │   [ PCB Huawei B612s-51d ]                                             │
    │                                                                        │
    │       ┌──────────────┐          ┌──────────────────────┐               │
    │       │   CHIP SoC   │          │  Punto BOOT (Pad) ●──┼──────┐        │
-   │       │  BALONG 711  │          └──────────────────────┘      │ (Puente│
+   │       │  Hi6950 V7R5 │          └──────────────────────┘      │ (Puente│
    │       └──────────────┘                                        │  Pinza)│
    │                                 ┌──────────────────────┐      │        │
    │       [ Blindaje Metálico ] ────┤  GND (Tierra)     ●──┼──────┘        │
@@ -262,7 +247,7 @@ flowchart LR
 | [`sonda_b612.py`](./sonda_b612.py) | Python 3 | Extractor completo de telemetría del módem | `python sonda_b612.py` |
 | [`endpoints_b612.py`](./endpoints_b612.py) | Python 3 | Auditor y escáner de endpoints HiLink bajo sesión | `python endpoints_b612.py` |
 | [`ports_deep.py`](./ports_deep.py) | Python 3 | Escáner de puertos TCP y servicios locales | `python ports_deep.py` |
-| [`simwatch.py`](./simwatch.py) | Python 3 | Monitor continuo de inserción y estado de SIM | `python simwatch.py` |
+| [`simwatch.py`](./simwatch.py) | Python 3 | Monitor continuo de eventos SIM | `python simwatch.py` |
 | [`kit_flasheo/`](./kit_flasheo/) | Binarios C / Win32 | Cadena de herramientas Balong (`usbdload`, `flash`, drivers) | Ver [`kit_flasheo/README_PASOS.txt`](./kit_flasheo/README_PASOS.txt) |
 
 ---
@@ -282,7 +267,8 @@ huawei-b612-unlock/
 │   ├── 04_GUIAS_DE_DESBLOQUEO_VIABLES.md        # 🚀 Manuales paso a paso de desbloqueo
 │   ├── 05_CATALOGO_SCRIPTS_HERRAMIENTAS.md      # 🛠️ Documentación detallada de scripts
 │   ├── 06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md # 📅 Bitácora día a día de la investigación
-│   └── 07_FUENTES_Y_REFERENCIAS.md              # 🌐 Créditos 4PDA, Capa9, Subtel y UCSC
+│   ├── 07_FUENTES_Y_REFERENCIAS.md              # 🌐 Créditos 4PDA, Capa9, Subtel y UCSC
+│   └── 08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md # 🧬 Exploit BootROM -x, PotatoNV y NVRAM nvid
 ├── kit_flasheo/                                 # 🧰 Toolchain de Flasheo USB Balong
 │   ├── balong_flash.exe                         # Flasheador de bajo nivel
 │   ├── balong_usbdload.exe                      # Cargador de arranque en RAM
@@ -309,7 +295,9 @@ huawei-b612-unlock/
 
 ## 📚 Créditos y Agradecimientos
 
-* **Comunidad 4PDA (Rusia):** A los desarrolladores *forth32*, *rust33*, *aomsk* y *Valikov* por sus investigaciones en la arquitectura Balong V7R11 y el desarrollo de las herramientas `balong_flash` y `balong_usbdload`.
+* **Comunidad 4PDA (Rusia):** A los desarrolladores *forth32*, *rust33*, *aomsk*, *Valikov* y *ValdikSS* por sus investigaciones en la arquitectura Balong V7R5 (Hi6950) y el desarrollo de las herramientas `balong_flash`, `balong_usbdload` y el exploit de BootROM.
+* **Comunidad Huawei-LTE-routers-mods:** Por la documentación y mantenimiento del mapa de registros NVRAM (`nvid.c`).
+* **Proyecto PotatoNV (kitsuned):** Por la inspiración arquitectónica del método de inyección Testpoint en plataformas HiSilicon.
 * **Comunidad Capa9 (Chile):** Al usuario *gonzalo bahia* por la documentación de los puntos de testpoint en placas B612 de Entel Chile.
 * **Universidad Católica de la Santísima Concepción (UCSC):** Por la preservación del instructivo oficial de habilitación de BAM B612 de Entel.
 * **SUBTEL (Subsecretaría de Telecomunicaciones de Chile):** Por el marco normativo que garantiza el derecho al desbloqueo libre de equipos.

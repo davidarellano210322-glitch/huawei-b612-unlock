@@ -15,12 +15,13 @@
 | **05** | [🛠️ 05_CATALOGO_SCRIPTS_HERRAMIENTAS.md](./05_CATALOGO_SCRIPTS_HERRAMIENTAS.md) | Manual de uso y parámetros de cada script desarrollado en Python (`sesion_b612.py`, `desbloquear_b612.py`, etc.). |
 | **06** | [📅 06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md](./06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md) | Bitácora de la investigación día a día: hipótesis, pruebas de laboratorio, errores encontrados y conclusiones. |
 | **07** | [📚 07_FUENTES_Y_REFERENCIAS.md](./07_FUENTES_Y_REFERENCIAS.md) | Referencias de foros 4PDA, comunidad Capa9 Chile, instructivo oficial UCSC/Entel y normativa Subtel. |
+| **08** | [🧬 08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md](./08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md) | Análisis del exploit Secuboot Bypass (`-x`), comparación con PotatoNV, mapa NVRAM `nvid.c` y arquitectura Hi6950. |
 
 ---
 
 ## 📊 Resumen Rápido del Estado del Dispositivo
 
-* **Modelo:** Huawei B612s-51d (SoC HiSilicon Balong 711 / V7R11)
+* **Modelo:** Huawei B612s-51d (SoC HiSilicon Balong 711 / V7R5 Hi6950)
 * **IMEI:** `864596030624094`
 * **Firmware:** `11.192.00.00.110` (Entel Chile CUST-B00C110)
 * **Estado SIM-Lock:** Activo (`SimLockEnable=1`, `SimLockVersion=5`)
