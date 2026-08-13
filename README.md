@@ -25,7 +25,7 @@
 
 <br/>
 
-| [⚡ Inicio Rápido](#-inicio-r%C3%A1pido) | [📊 Telemetría en Vivo](#-telemetr%C3%ADa-y-estado-en-vivo) | [🔬 Ingeniería Inversa](#-an%C3%A1lisis-de-ingenier%C3%ADa-inversa) | [🐚 Shell Loader V7R5](#-shell-loader-v7r5-autónomo-en-ram) | [🚀 Métodos Viables](#-rutas-de-desbloqueo-100-verificadas) | [🗂️ Documentación](./documentacion/README.md) |
+| [⚡ Inicio Rápido](#-inicio-r%C3%A1pido) | [📊 Telemetría](#-telemetr%C3%ADa-y-estado-en-vivo) | [🐚 Shell Loader](#-shell-loader-v7r5-autónomo-en-ram) | [📚 Dossier Técnico](#-dossier-documental-completo-cap%C3%ADtulos-01-al-09) | [🚀 Métodos Viables](#-rutas-de-desbloqueo-100-verificadas) | [🗂️ Documentación](./documentacion/README.md) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 
 ---
@@ -104,6 +104,24 @@ ConnectionStatus    = 902  [Desconectado por restricción de red]
 NetworkType         = 0    [Sin Registro Celular permitido]
 PLMN_Status         = ""   [Denegado acceso a red 73009 (WOM)]
 ```
+
+---
+
+## 📚 Dossier Documental Completo (Capítulos 01 al 09)
+
+Toda la investigación se encuentra desglosada en **9 documentos técnicos especializados** dentro de la carpeta [`documentacion/`](./documentacion/):
+
+| Capítulo | Módulo Documental | Temas Clave Tratados | Acceso Directo |
+| :---: | :--- | :--- | :---: |
+| **01** | **Estado del Dispositivo y Diagnóstico** | Ficha técnica, IMEI `864596030624094`, bandas FDD LTE, protocolo SCRAM-SHA256 y lectura en vivo de la SIM WOM (`SimState=257`, `SimLockRemainTimes=2`). | [📖 Ver Cap. 01](./documentacion/01_ESTADO_DEL_DISPOSITIVO.md) |
+| **02** | **Análisis e Ingeniería Inversa** | Desmontaje de `unlock_v7r11` (Setup Factory / ADB), análisis de algoritmos SIM-Lock V1 a V5, deconstrucción de `inst_webui` y firmwares M_AT. | [📖 Ver Cap. 02](./documentacion/02_ANALISIS_REVERSE_ENGINEERING.md) |
+| **03** | **Auditoría de Seguridad WebUI** | Escaneo de puertos (23, 80, 443, 5510, 5555), auditoría de 40+ endpoints HiLink y diagnóstico del error `100003` en la subida multipart. | [📖 Ver Cap. 03](./documentacion/03_AUDITORIA_WEBUI_Y_ENDPOINTS.md) |
+| **04** | **Guías de Desbloqueo Viables** | Manuales de ejecución: (A) Flasheo USB por Testpoint BOOT + M_AT + Telnet; (B) Procedimiento legal Subtel para NCK gratuito oficial. | [📖 Ver Cap. 04](./documentacion/04_GUIAS_DE_DESBLOQUEO_VIABLES.md) |
+| **05** | **Catálogo de Scripts y Herramientas** | Documentación de la suite en Python (`sesion_b612.py`, `desbloquear_b612.py`, `ingresar_codigo.py`, `webui_update.py`, etc.). | [📖 Ver Cap. 05](./documentacion/05_CATALOGO_SCRIPTS_HERRAMIENTAS.md) |
+| **06** | **Cronología e Historial de Avances** | Bitácora cronológica de 6 fases: autenticación SCRAM, detección crítica de intentos, auditoría web, hallazgos y cierre. | [📖 Ver Cap. 06](./documentacion/06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md) |
+| **07** | **Fuentes, Referencias y Créditos** | Referencias de 4PDA (forth32, rust33, aomsk), comunidad Capa9 Chile, instructivo oficial UCSC/Entel y normativa Subtel. | [📖 Ver Cap. 07](./documentacion/07_FUENTES_Y_REFERENCIAS.md) |
+| **08** | **Exploit Secuboot y Ecosistema Balong** | PotatoNV vs Balong, análisis del exploit BootROM `balong-usbdload -x 4`, parche SRAM en `0x1001FFEC` y mapa NVRAM `nvid.c`. | [📖 Ver Cap. 08](./documentacion/08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md) |
+| **09** | **Shell Loader V7R5 y Backup NVRAM** | Construcción de `usbloader-b612-shell.bin`, initramfs con busybox estático, dump real del ítem 8268 y procedimiento de backup vía fastboot. | [📖 Ver Cap. 09](./documentacion/09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md) |
 
 ---
 
