@@ -122,6 +122,9 @@ Toda la investigación se encuentra desglosada en **9 documentos técnicos espec
 | **07** | **Fuentes, Referencias y Créditos** | Referencias de 4PDA (forth32, rust33, aomsk), comunidad Capa9 Chile, instructivo oficial UCSC/Entel y normativa Subtel. | [📖 Ver Cap. 07](./documentacion/07_FUENTES_Y_REFERENCIAS.md) |
 | **08** | **Exploit Secuboot y Ecosistema Balong** | PotatoNV vs Balong, análisis del exploit BootROM `balong-usbdload -x 4`, parche SRAM en `0x1001FFEC` y mapa NVRAM `nvid.c`. | [📖 Ver Cap. 08](./documentacion/08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md) |
 | **09** | **Shell Loader V7R5 y Backup NVRAM** | Construcción de `usbloader-b612-shell.bin`, initramfs con busybox estático, dump real del ítem 8268 y procedimiento de backup vía fastboot. | [📖 Ver Cap. 09](./documentacion/09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md) |
+| **10** | **Prueba de Shell Loader en Hardware** | Guía práctica de inyección de bootloader en RAM con `-x 4` sobre el B612 real: testpoint, consolas y diagnóstico. | [📖 Ver Cap. 10](./documentacion/10_PRUEBA_SHELL_LOADER_EN_HARDWARE.md) |
+| **11** | **Verificación Forense de unlock_v7r11** | Análisis forense de `unlock_v7r11`: se confirma que NO contiene algoritmo V5 — es un cliente ADB de escritura NVRAM. | [📖 Ver Cap. 11](./documentacion/11_VERIFICACION_UNLOCK_V7R11.md) |
+| **12** | **Auditoría Avanzada de Vectores de Software** | Auditoría en vivo de SCRAM Huawei (inversión de claves), fuzzing de inyección de diagnóstico y análisis de TR-069/CWMP. | [📖 Ver Cap. 12](./documentacion/12_AUDITORIA_AVANZADA_VECTORES_SOFTWARE.md) |
 
 ---
 
