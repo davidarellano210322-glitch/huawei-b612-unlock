@@ -21,6 +21,7 @@
 | **11** | [🔍 11_VERIFICACION_UNLOCK_V7R11.md](./11_VERIFICACION_UNLOCK_V7R11.md) | Análisis forense de `unlock_v7r11`: se confirma que NO contiene algoritmo V5 — es un cliente ADB de escritura NVRAM. |
 | **12** | [🛡️ 12_AUDITORIA_AVANZADA_VECTORES_SOFTWARE.md](./12_AUDITORIA_AVANZADA_VECTORES_SOFTWARE.md) | Auditoría en vivo de SCRAM Huawei (inversión de claves), fuzzing de inyección de diagnóstico y análisis de TR-069/CWMP. |
 | **13** | [🧬 13_ANALISIS_AVANZADO_APN_HOTA_Y_PARTICIONES.md](./13_ANALISIS_AVANZADO_APN_HOTA_Y_PARTICIONES.md) | Inyección AT en perfiles APN, arquitectura de firmas HOTA, particiones NAND y arquitectura dual-core AP/CP. |
+| **14** | [🔌 14_CONMUTACION_USB_MODOS_Y_PROTOCOLOS_DIAG.md](./14_CONMUTACION_USB_MODOS_Y_PROTOCOLOS_DIAG.md) | Descriptores USB (PID 1443 vs 14DB vs 1506), comandos `AT^SETPORT`, entrada a bootloader con `AT^GODLOAD` y conmutación SCSI. |
 
 ---
 
