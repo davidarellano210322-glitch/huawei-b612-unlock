@@ -17,6 +17,9 @@
 | **07** | [📚 07_FUENTES_Y_REFERENCIAS.md](./07_FUENTES_Y_REFERENCIAS.md) | Referencias de foros 4PDA, comunidad Capa9 Chile, instructivo oficial UCSC/Entel y normativa Subtel. |
 | **08** | [🧬 08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md](./08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md) | Análisis del exploit Secuboot Bypass (`-x`), comparación con PotatoNV, mapa NVRAM `nvid.c` y arquitectura Hi6950. |
 | **09** | [🐚 09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md](./09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md) | Construcción del Shell Loader V7R5 autónomo en RAM, volcado completo de NVRAM y decodificación real del ítem 8268. |
+| **10** | [🧪 10_PRUEBA_SHELL_LOADER_EN_HARDWARE.md](./10_PRUEBA_SHELL_LOADER_EN_HARDWARE.md) | Guía práctica de prueba del Shell Loader en el B612 real: testpoint, carga con `-x 4`, consolas y diagnóstico. |
+| **11** | [🔍 11_VERIFICACION_UNLOCK_V7R11.md](./11_VERIFICACION_UNLOCK_V7R11.md) | Análisis forense de `unlock_v7r11`: se confirma que NO contiene algoritmo V5 — es un cliente ADB de escritura NVRAM. |
+| **12** | [🛡️ 12_AUDITORIA_AVANZADA_VECTORES_SOFTWARE.md](./12_AUDITORIA_AVANZADA_VECTORES_SOFTWARE.md) | Auditoría en vivo de SCRAM Huawei (inversión de claves), fuzzing de inyección de diagnóstico y análisis de TR-069/CWMP. |
 
 ---
 
