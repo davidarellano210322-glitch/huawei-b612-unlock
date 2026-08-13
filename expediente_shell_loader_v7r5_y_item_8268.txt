@@ -1,0 +1,258 @@
+===================================================================
+ EXPEDIENTE: BALONG-USBDLOAD -X COMPILADO + SHELL LOADER V7R5
+ + DECODIFICACIÓN DEL ITEM 8268 (CardlockStatus)
+ (B612s-51d, IMEI 864596030624094) — 2026-08-13
+===================================================================
+
+TAREA 1 — COMPILAR BALONG-USBDLOAD CON EL EXPLOIT -X ......... HECHA
+TAREA 2 — EVALUAR SHELL LOADER V7R5 .......................... HECHA
+TAREA 3 — DECODIFICAR ITEM 8268 .............................. HECHA
+
+---------------------------------------------------------------------
+1) TAREA 1: BALONG-USBDLOAD -X COMPILADO (VERIFICADO)
+---------------------------------------------------------------------
+- Binario: balong-usbdload/balong_usbdload_x.exe  (166.181 bytes,
+  PE32+ x86-64, compilado 2026-08-13 10:53)  ->  copia en
+  kit_flasheo/balong_usbdload_x.exe (mismo tamaño).
+- Verificación estática: contiene las cadenas del exploit
+  ("[Secuboot]", "V7R5"/"Hi6950") y el texto de ayuda de -x
+  (grep sobre el binario: 2 hits "Secuboot", 2 hits V7R5|Hi6950).
+- Verificación dinámica (ejecución real):
+    balong_usbdload_x.exe -h
+  muestra el menú completo de -x <1-6>, incluido:
+    (4) V7R5:  B612s, B618s, B715s (Hi6950)
+  O sea: el exploit secuboot_exploit_v7r5() (parchea SRAM 0x1001FFEC)
+  está COMPILADO y operativo en la build de Windows.
+- Prueba de parseo real (sin módem):
+    balong_usbdload_x.exe -m usbsafe-b612.bin
+  parsea el loader y muestra:
+    Versión tabla particiones: ptable 1.00
+    Versión firmware:          V7R500_CPE        <-- plataforma V7R5
+  (m3boot, fastboot@0x4fd00000, nvbacklte, nvdefault, nvimg,
+   nvdload, oeminfo, ...)
+- NOTA: la build oficial de Windows del repo (winbuild/Release,
+  95 KB) es de dic-2019, ANTERIOR al commit c485c71 del exploit
+  (22-oct-2024). La build nueva (166 KB) es la que hay que usar
+  para -x. El resto de utilidades (loader-patch, ptable-injector,
+  ptable-list) se recompilaron también en winbuild/Release.
+
+  USO para el B612:
+    balong_usbdload_x.exe -x 4 <loader>.bin
+  (4 = V7R5/Hi6950). El exploit desactiva la verificación de firma
+  del BootROM y permite cargar loaders NO firmados/modificados.
+
+---------------------------------------------------------------------
+2) TAREA 2: EVALUACIÓN DEL SHELL LOADER V7R5
+---------------------------------------------------------------------
+2.1) QUÉ ES UN SHELL LOADER
+- Un usbloader normal (usbloader-*.bin) lleva dentro un Linux de
+  arranque que flashea una imagen de firmware a la NAND.
+- Un SHELL loader es un usbloader cuyo componente interno fue
+  sustituido por un sistema que NO flashea: arranca y abre una
+  consola (telnet/adb/serial shell) sobre el dispositivo.
+  Permite operar el módem SIN cambiar el firmware instalado.
+
+2.2) RESULTADO DEL CENSO DE LOADERS (análisis binario completo)
+Se parsearon los 47 .bin de balong-usbdload/ y kit_flasheo/:
+cabecera de bloques (raminit/usbldr), firmas de parcheo de
+flash_eraseall (patcher.c) y tabla de particiones embebida
+(magia pTableHead -> version/product). Resultado por plataforma:
+
+  PLATAFORMA   LOADERS (product en ptable embebida)
+  V7R5/Hi6950  usbloader-b715.bin        -> "V7R500_CPE"
+               usbsafe-b612.bin (kit)    -> "V7R500_CPE"  <-- EL NUESTRO
+  V7R11/Hi6921 3372h, 5573cs-322, 5577, 5770, e5770, b310,
+               b315_shell, e3372h_shell, usblsafe-*  -> "HI6921_*"
+  V7R2 /Hi6930 3372s, 5377, 5186  -> "V7R2_*"
+  V7R22/Hi6932 b525, b525-shell, b528, e5785, e5885  -> "V7R220_*"
+  V7R1 /H6920  usblsafe-327x, usblsafe-5330bs (formato BOOTROM_V01.02)
+
+2.3) CONCLUSIONES DE LA EVALUACIÓN
+a) SÍ existe loader V7R5 para el B612: usbsafe-b612.bin (kit_flasheo).
+   Es el loader propio del B612; idéntico en estructura al
+   usbloader-b715.bin del repo (mismo raminit 0x14cc @0x0, mismo
+   usbldr @0x4f400000, offsets 0x54/0x1520). Ambos son "V7R500_CPE".
+   -> Corrige el expediente anterior: NO es que no haya loader V7R5;
+      lo que no hay es un SHELL loader V7R5 (dedicado).
+
+b) NO existe shell loader V7R5 público (confirmado). Los 3 shell
+   loaders del repo son de otra plataforma:
+     usbloader-b525-shell.bin      V7R220_UDP  (B525, V7R22)
+     usbloader_b315_shell.bin      HI6921_V711_CPE (B315, V7R11)
+     usblsafe-e3372h_shell.bin     HI6921      (E3372h, V7R11)
+   Ninguno es V7R5; NO se puede cargar en un B612 (el raminit/usbldr
+   se escriben en direcciones de RAM distintas y el SoC es otro).
+
+c) usbsafe-b612.bin YA está parcheado como "safe" (no borra flash):
+   firma pv7r22_2 (V7R22_2) presente @0x19b0c y en la posición del
+   parche ya está "mov r0,#0" (00 00 a0 e3). En cambio el
+   usbloader-b715.bin del repo NO está parcheado (en 0x18938 sigue
+   la instrucción original 0xafffffeb) -> es el original "unsafe"
+   que borra la flash. (El kit ya usaba la versión segura.)
+   - Además, la firma pv7r22_2 es UNA DE LAS QUE balong-usbdload
+     busca automáticamente (pv7r1->pv7r2->pv7r11->pv7r22->
+     pv7r22_2->pv7r22_3): para usbsafe-b612.bin el auto-parche
+     ENCUENTRA su firma, así que se puede cargar SIN la opción -c
+     (sin riesgo de borrado) aunque no exista firma "v7r5" en el
+     patcher.
+
+d) La vía "CAMINO B" (shell loader propio) es viable pero es trabajo
+   de ingeniería, no hay binario público:
+   - Técnica documentada por ValdikSS (4PDA showtopic=744265,
+     post #260): desempacar el usbloader (raminit @0x54, usbldr
+     @0x1520), extraer la imagen de arranque Android del interior
+     (magia "ANDROID!" @0x5c508 en usbsafe-b612.bin), modificarla
+     (ramdisk/rootfs con consola), reempaquetar y AJUSTAR EL TAMAÑO
+     en la cabecera del usbloader (campo size de usbldr).
+   - El -x 4 es el habilitador clave: un loader modificado ya no
+     tiene la firma de fábrica; sin el exploit el BootROM lo
+     rechaza; con "-x 4" la verificación queda desactivada.
+   - Alternativa sin construir nada: con -x 4 + usbsafe-b612.bin el
+     módem arranca el sistema del loader; combinado con balong-flash
+     o balong-fbtools se puede leer/escribir la NVRAM completa y
+     hacer el unlock sin depender del flasheo M_AT (CAMINO C del
+     expediente anterior).
+
+2.4) RECOMENDACIÓN PRÁCTICA
+Para el objetivo de desbloqueo, el shell loader NO es necesario: el
+kit actual (testpoint + usbsafe-b612.bin + M_AT + telnet NVWREX=8268)
+ya es la vía probada. El -x 4 queda disponible para futuras
+investigaciones (cargar loaders sin firmar, respaldar/editar NVRAM
+con balong-fbtools/qhuaweiflash, o el shell loader casero).
+
+---------------------------------------------------------------------
+3) TAREA 3: DECODIFICACIÓN DEL ITEM NVRAM 8268 (CardlockStatus)
+---------------------------------------------------------------------
+3.1) IDENTIDAD
+- balong-nvtool/nvid.c línea 437:
+      { 8268, "en_NV_Item_CardlockStatus", 0 }
+- Familia SIM-lock del B612 (mismo rango de items):
+      8253 en_NV_Item_Sim_Personalisation_Pwd
+      8255 en_NV_Item_Me_Personalisation_Active_Flag
+      8267 en_NV_Item_CustomizeSimLockPlmnInfo   (344 bytes: listas
+           PLMN del operador al que está bloqueado el equipo)
+      8268 en_NV_Item_CardlockStatus  <-- ESTADO del bloqueo
+      8269 en_NV_Item_CustomizeSimLockMaxTimes (8 bytes: {1,10})
+      8517 en_NV_Item_ENHANCE_SIMCARD_LOCK_STATUS
+      8518 en_NV_Item_GENHANCE_SIMCARD_REMAIN_TIMES
+- Longitud real en el módem (confirmada por el propio FAQ de forth32
+  para E3372, y por el patrón del comando):
+      at^nvrdlen=8268  ->  ^NVRDLEN: 12
+
+3.2) EL COMANDO QUE ESCRIBE EL KIT
+    atc at^nvwrex=8268,0,12,1,0,0,0,2,0,0,0,a,0,0,0
+Formato: ^NVWREX=<item>,<offset>,<len>,<b0>...<bn>
+  -> item 8268, offset 0, longitud 12, 12 bytes:
+     01 00 00 00 | 02 00 00 00 | 0A 00 00 00
+     = 3 palabras U32 little-endian: {0x01, 0x02, 0x0A}
+
+3.3) ESTRUCTURA DECODIFICADA (3 x U32, little-endian)
+  +0x00  U32  flag/switch de cardlock presente:  0x01
+               (constante en estado bloqueado Y desbloqueado)
+  +0x04  U32  ESTADO DEL BLOQUEO:  0x01 = BLOQUEADO
+                                   0x02 = DESBLOQUEADO   <-- el que se cambia
+  +0x08  U32  intentos de desbloqueo restantes/máximos: 0x0A = 10
+               (equivale a "at^maxlcktms=10"; en el B612 desbloqueado
+                la WebUI reporta Remain=10)
+
+  El desbloqueo = FLIP del byte 4 (offset 0x04): 0x01 -> 0x02,
+  manteniendo las otras dos palabras.
+
+3.4) EVIDENCIA DE CADA CAMPO
+a) Bloqueado vs desbloqueado (fuente: 4PDA E3372, FAQ de forth32,
+   y hilo E3276):
+   - Escritura que BLOQUEA un módem MTS (4PDA showtopic=582284,
+     "А вот как залочен МТСовский"):
+        at^nvwrex=8268,0,12,1,0,0,0,1,0,0,0,A,0,0,0   (palabra 1 = 1)
+   - Escritura que DESBLOQUEA (método universal, el del kit):
+        at^nvwrex=8268,0,12,1,0,0,0,2,0,0,0,A,0,0,0   (palabra 1 = 2)
+   - Lectura real en un E3276 (4PDA showtopic=475491, post):
+        at^nvrd=8268 -> ^NVRD: 12,01 00 00 00 02 00 00 00 0A 00 00 00
+        (equipo desbloqueado -> palabra 1 = 2)
+   - Lectura de ejemplo en el FAQ de E3372 (estado con bloqueo):
+        at^nvrdex=8268,0,12 -> ^NVRD: 8268,0,12,01 00 00 00 01 00
+        00 00 0A 00 00 00   (palabra 1 = 1)
+b) Intentos (palabra 3 = 10):
+   - ^NVRD de 8269 (CustomizeSimLockMaxTimes) en E3276:
+        ^NVRD: 8,01 00 00 00 0A 00 00 00   -> {1, 10}
+   - En el B612 desbloqueado (simlog.txt del propio router):
+        simlock[Enable=0 Remain=10]
+   - Respuesta AT de estado ^CARDLOCK: 1,10,0 en equipos bloqueados
+     (estado 1, intentos 10) — vista lógica del módem del mismo item.
+c) Flag "prohibir desbloqueo por código" (FAQ de forth32): dentro de
+   la misma celda 8268 hay un flag que, si lo pone el operador, hace
+   que AT^CARDLOCK responda ERROR SIEMPRE (ni con el código correcto).
+   La escritura directa de 8268 lo ignora -> por eso el método del
+   kit "desbloquea SIEMPRE, incluso con el comando ^cardlock
+   bloqueado y con los intentos agotados" (textual del FAQ).
+
+3.5) POR QUÉ FUNCIONA Y QUÉ NO HACE
+- No gasta los 2 intentos restantes: escribe NVRAM directamente, no
+  pasa por la página de código NCK ni por AT^CARDLOCK.
+- Persiste tras resets y actualizaciones WebUI (el bloqueo vive en la
+  NVRAM del módem, no en el firmware de usuario), consistente con la
+  verificación independiente de techunlockhub para el -51d.
+- NO calcula el NCK (no existe calculador V5; la validación del
+  código vive en el firmware del módem — expediente_firmware_m_at).
+- ADVERTENCIA del proyecto: el método quita el SIM-lock de raíz,
+  pero un reseteo de fábrica posterior puede corromper calibración/
+  registro de señal (ver README); usar el método M_AT+8268 solo con
+  el procedimiento del kit (matar add_param, escribir, reiniciar).
+
+---------------------------------------------------------------------
+4) ACTUALIZACIÓN 2026-08-13: SHELL LOADER CONSTRUIDO + 8268 VERIFICADO
+   CON DATOS REALES DEL B612
+---------------------------------------------------------------------
+4.1) SHELL LOADER V7R5 CONSTRUIDO (kit_flasheo/usbloader-b612-shell.bin)
+- Sustituye el ramdisk del bootimg ANDROID! embebido (usbldr+0x5afe8,
+  in-file 0x5c508) por un initramfs autónomo:
+    /init -> busyboxx (applet init), /bin/busyboxx (busybox ARM ESTÁTICO
+    2.191.352 B extraído del M_AT: telnetd, sh/ash, mount, mknod, devmem,
+    vi, nc, wget...), /bin/adbd (estático 117.968 B), symlinks, inittab,
+    rcS (monta proc/sys/devtmpfs; lanza telnetd :23 y adbd), profile,
+    default.prop (ro.secure=0, ro.debuggable=1), nodos /dev/console,
+    /dev/null, /dev/ttyAMA0 (204:64).
+- Repempaquetado: el ramdisk nuevo (1.297.617 B gzip) absorbe la ranura
+  del 'second' (cpio sbin/reboot; second_size -> 0); la cola cifrada tras
+  el bootimg y la cabecera del usbloader NO cambian (tamaño total del
+  bloque 0x794fe8 intacto). ROUND-TRIP byte-idéntico verificado ANTES de
+  aplicar el cambio (lógica de reempaquetado validada).
+- Flujo de arranque confirmado por las strings del fastboot interno del
+  loader: 'boot kernel from flash', 'kernel/ramdisk @ %x (%d bytes)',
+  'mem=50M console=ttyAMA0,115200', 'Booting Linux', y el fallback de
+  firma 'oem ca check error / image check error, usb boot...' -> el -x 4
+  es imprescindible (loader sin firma de fábrica).
+- Verificación del resultado: balong_usbdload_x.exe -m
+  usbloader-b612-shell.bin parsea la ptable V7R500_CPE correctamente;
+  el ramdisk nuevo descomprime como cpio newc válido; kernel intacto
+  (magic 0000a0e1 en 0x5bfe8).
+- PENDIENTE DE PRUEBA EN HARDWARE: que el fastboot del loader arranque el
+  bootimg embebido en esta variante C110 y el kernel acepte el initramfs
+  (cambio 100% en RAM, sin escritura a flash -> seguro de probar).
+
+4.2) ITEM 8268 VERIFICADO CON LA IMAGEN NV DEL FIRMWARE (balong-nvtool)
+- Se extrajo la imagen NVRAM del firmware M_AT V3.9 (firma 'DIN\x22'
+  0x224e4944 @0x17f620e; producto 'Balong V700R500C31B201' = V7R5).
+- balong-nvtool.exe -l -> 4 archivos: common.bin, TL_NvTable.bin,
+  PRODUCT_NvTable.bin, GU_NvTable.bin (el 8268 vive en GU_NvTable).
+- balong-nvtool.exe -d 8268 (valor de FÁBRICA = desbloqueado):
+      00 00 00 00 | 02 00 00 00 | 0A 00 00 00
+  -> palabra 0 = switch cardlock (0 = fábrica / 1 = operador), palabra 1
+     = ESTADO (1 = bloqueado / 2 = desbloqueado), palabra 2 = 10 intentos.
+- Confirma el decode: el write del kit (01 00 00 00 02 00 00 00 0A 00 00 00)
+  flipea la palabra 1 de 01 a 02. El estado bloqueado esperado
+  (01 00 00 00 01 00 00 00 0A 00 00 00) coincide con la escritura MTS de
+  4PDA y con la lectura del FAQ de E3372.
+- Items relacionados: 8269 MaxTimes = 00 00 00 00 0A 00 00 00; 8267 PLMN
+  = AA AA ... (vacío); 8253 password = '12345678'.
+
+---------------------------------------------------------------------
+5) ARCHIVOS GENERADOS / MODIFICADOS EN ESTA RONDA
+- kit_flasheo/balong_usbdload_x.exe  (copia verificada de la build -x)
+- kit_flasheo/usbloader-b612-shell.bin  (shell loader V7R5 construido)
+- analizar_loaders.py  (censo de loaders: cabecera, firmas, ptable)
+- shell_loader/  (construir_shell.py, analizar_bootimg.py, raiz/, extraido/)
+- documentacion/09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md
+- README.md  (secciones -x 4, decode 8268, shell loader, backup NVRAM)
+- expediente_shell_loader_v7r5_y_item_8268.txt  (este documento)
+===================================================================

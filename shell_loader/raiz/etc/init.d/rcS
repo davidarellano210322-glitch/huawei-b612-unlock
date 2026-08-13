@@ -1,0 +1,25 @@
+#!/bin/sh
+# rcS del shell loader B612 (V7R5) - arranca las consolas
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export HOME=/root
+
+mount -t proc proc /proc 2>/dev/null
+mount -t sysfs sysfs /sys 2>/dev/null
+mount -t devtmpfs devtmpfs /dev 2>/dev/null || true
+mkdir -p /dev/pts /tmp /var /root
+mount -t devpts devpts /dev/pts 2>/dev/null
+
+echo "=============================================="
+echo " B612 SHELL LOADER (V7R5 / Hi6950) en RAM"
+echo " Consola serial:  ttyAMA0 @ 115200"
+echo " Telnet:          puerto 23 (LAN 192.168.x.x)"
+echo " ADB:             puerto 5555 (USB/red)"
+echo "=============================================="
+
+# Telnet: shell raiz directo en el puerto 23
+telnetd -l /bin/sh -p 23 &
+
+# ADB (binario estatico): daemon en 5555
+if [ -x /bin/adbd ]; then
+    adbd &
+fi

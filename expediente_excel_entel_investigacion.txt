@@ -1,0 +1,260 @@
+=====================================================================
+ INVESTIGACIÓN A FONDO: ¿ESTÁ FILTRADO EL EXCEL DE ENTEL CON LOS
+ CÓDIGOS DE DESBLOQUEO B612? (2026-08-12)
+=====================================================================
+
+OBJETIVO
+---------------------------------------------------------------------
+Buscar el Excel interno de Entel ("entéraT") con los códigos NCK por
+IMEI para el B612 (IMEI 864596030624094), o cualquier fuente que
+permita obtener el código sin pagar ni llamar.
+
+---------------------------------------------------------------------
+1) QUÉ SE CONFIRMÓ (fuente oficial)
+---------------------------------------------------------------------
+El instructivo OFICIAL de Entel "Habilitación BAM B612" (PDF publicado
+por la UCSC, re-subido en capa9/MediaFire) dice textualmente:
+
+   "El código de desbloqueo, se encuentra disponible en el Excel que
+    encontrarás en entéraT. Luego, ingresar el IMEI ... en la página
+    web https://dpeleors.sibpages.com/ y se obtendrá el código."
+
+  - entéraT = intranet interna de Entel para ventas en tiendas
+    (confirmado: aparece en memorandos internos de Entel en Scribd,
+    guías de "Gestiones Críticas en Ventas", etc.). NO es público.
+  - dpeleors.sibpages.com = sitio Squarespace DESPUBLICADO:
+    * el subdominio sigue resolviendo (Cloudflare 104.17.221.218)
+    * responde HTTP 404 "Not Published" (plantilla de Squarespace)
+    * NO existe ninguna copia en Wayback Machine (CDX vacío; solo
+      hay snapshots 404 de www.sibpages.com, no del subdominio)
+  - Los buscadores solo indexan el PDF mencionándola; nadie archivó
+    el contenido de la página (que habría sido un formulario IMEI).
+
+---------------------------------------------------------------------
+1b) ¿SE PUEDE ENTRAR A entéraT DESDE FUERA? (verificado: NO)
+---------------------------------------------------------------------
+   - entéraT = portal interno de Entel en  www.enterat.cl/Login.aspx
+     (aparece en un manual de ViciDial: http://www.enterat.cl/Login.aspx)
+   - DNS público: www.enterat.cl -> 200.12.171.157 (rango IP de Entel).
+   - PERO los puertos 80/443/8080 dan TIMEOUT desde Internet:
+     firewall corporativo; solo responde dentro de la red Entel
+     (VPN o tiendas). NO se puede acceder desde casa sin credenciales
+     corporativas + red/VPN de Entel.
+   - enterat.com (sin .cl) es OTRA cosa: un portal de noticias
+     español ("entérate"), NO relacionado.
+
+---------------------------------------------------------------------
+2) BÚSQUEDAS REALIZADAS (todas sin resultado de filtración)
+---------------------------------------------------------------------
+  - Google (múltiples consultas): "entéraT"/"enterat" + Entel;
+    "dpeleors"; "Excel códigos desbloqueo B612"; site:capa9.net;
+    site:github.com; "B612" + xlsx/mega.nz/drive/mediafire.
+  - Wayback Machine (CDX API) para sibpages.com y dpeleors.* -> vacío.
+  - capa9.net: hilos de habilitación BAM B612 (2021), liberación
+    b612s-52d (2020), ayuda b612-533 (2022), tags b612. Nadie
+    compartió el Excel; todos terminan en "pide el código a Entel"
+    o "cómpralo en eBay (US$3-4)".
+  - chw.net: sin hilos relevantes (búsqueda no devuelve nada).
+  - 4PDA (hilo B612s, páginas 14-19): nadie tiene el Excel; el
+    método de desbloqueo documentado es flasheo/USB, no códigos.
+  - GitHub: ninguna base de códigos Entel (solo calculadoras de
+    dongles viejos E-series con algoritmo V4, NO aplicable: el B612
+    es Balong V7R11 y su NCK se valida con secreto interno del
+    módem — probado en expediente_firmware_m_at.txt).
+  - IMEI exacto "864596030624094": cero resultados en Google (nadie
+    publicó el código de este equipo).
+  - Telegram (canales de unlock): solo herramientas de flasheo, no
+    códigos por operador.
+
+CONCLUSIÓN: el Excel NO está filtrado (no hay evidencia pública de
+que haya salido de entéraT). El código por IMEI sigue existiendo solo
+en la BD interna de Entel (y en las BD de los vendedores con acceso).
+
+---------------------------------------------------------------------
+3) VÍAS REALES PARA OBTENER EL CÓDIGO (IMEI 864596030624094)
+---------------------------------------------------------------------
+A) ENTEL DIRECTAMENTE — GRATIS POR LEY (vía recomendada)
+   - Teléfono: 800 367 626 (Chile). Pedir "código de desbloqueo de
+     red (NCK)" para el BAM B612 con el IMEI.
+   - Entel YA tuvo un proceso para emitir estos códigos (el propio
+     instructivo BAM de 2020 lo describe; los routers BAM se
+     habilitaban así en tienda).
+   - Norma SUBTEL: desde 2012 el desbloqueo de equipos terminales
+     móviles es sin costo para el usuario. Si se niegan, pedir la
+     negativa por escrito y reclamar en Subtel.
+   - Nota: hoy Entel Chile no tiene web pública de desbloqueo (la de
+     2018 para equipos 2017 murió; entel.cl/desbloqueo* = 404).
+     El canal actual es teléfono (103) o tienda.
+
+B) VENDEDORES CON ACCESO A LA BD (pago, ~US$3-15)
+   - DirectUnlocks: desbloqueo por IMEI, lista "operadores Chile"
+     para B612-233 (procesa vía el operador).
+   - doctorSIM: B612 desde €14,95.
+   - sim-unlock.net: "Huawei B612" con NCK/SPCK.
+   - eBay: servicios de "Huawei modem/router unlock code" (US$3-35);
+     la comunidad capa9 confirma códigos B612 en eBay por US$3-4 con
+     reembolso si no funciona.
+   OJO: quedan SOLO 2 intentos (SimLockRemainTimes=2). Comprar a un
+   vendedor con garantía de reembolso es razonable; nunca probar
+   códigos al azar.
+
+C) AUTÓNOMO SIN CÓDIGO (no gasta intentos)
+   - kit_flasheo por USB: firmware M_AT + AT^NVWREX=8268 escribe la
+     NVRAM y quita el SIM-lock de raíz (vía probada para el -51d).
+   - (Mencionado en 4PDA: una vulnerabilidad de buffer overflow en
+     el binario VOIP corre como root y podría permitir SSH — pero es
+     investigación avanzada y la vía USB ya cubre esto sin riesgo.)
+
+---------------------------------------------------------------------
+4) RECORDATORIO DEL ESTADO DEL ROUTER
+---------------------------------------------------------------------
+   - Fue restablecido de fábrica (firstlogin 0, salt SCRAM nuevo).
+   - La contraseña WebUI actual NO es la del sticker ni admin/admin
+     (probado con la prueba SCRAM correcta): queda pendiente resolver
+     ese acceso (preguntar a quien lo cambió, o flasheo).
+   - SimLockEnable=1, V5, RemainTimes=2, IMEI 864596030624094.
+   - Los adaptadores de red de la PC quedaron en DHCP (estado de
+     fábrica), verificado en la ronda anterior.
+
+---------------------------------------------------------------------
+5) ¿CÓMO ACCEDEN LOS VENDEDORES AL CÓDIGO? (2026-08-12)
+---------------------------------------------------------------------
+   Nada de hackeo: acceso comercial legítimo (o semi-legítimo) a
+   los mismos sistemas, por estas vías:
+
+   a) HUAWEI GENERA EL CÓDIGO, NO EL OPERADOR.
+      - El NCK se calcula del lado del servidor de Huawei (algoritmo
+        propietario, no existe calculador local — probado en
+        expediente_firmware_m_at.txt: libpinapi.so no hace cripto,
+        la validación vive en el firmware del módem V7R11).
+      - Huawei cerró SU PORTAL PÚBLICO de códigos el 25-jul-2018
+        (confirmado en HUAWEI Community, topicId-162246). Desde
+        entonces el flujo es: Huawei -> operador -> cliente.
+
+   b) CANALES B2B (las 3 vías reales de los vendedores):
+      1. Acuerdos/reseller con el OPERADOR: los vendedores se
+         registran como distribuidores/talleres autorizados y
+         consultan el sistema B2B del operador (para Entel, el
+         equivalente moderno del Excel de entéraT) por API o web.
+      2. Acceso al SISTEMA DE HUAWEI vía mayorista: empresas como
+         UnlockBase / DirectUnlocks / sim-unlock.net integran la
+         API de Huawei o la de un mayorista que sí tiene contrato
+         (sistema de "créditos" — compran códigos al por mayor).
+      3. Empleados con acceso interno que procesan IMEIs por fuera
+         (vía gris — por eso los precios bajos en eBay US$3-4).
+
+   c) EVIDENCIA RECOGIDA EN ESTA RONDA:
+      - Guía Alibaba (ago-2026): "third-party IMEI unlock services
+        generate NCKs using your IMEI and model number... through
+        updated database integration" — confirma integración de BD
+        de operador/Huawei, no calculadoras locales.
+      - iFixit Answers #396901: el acceso de terceros es vía
+        cuentas de mayorista/cuenta de operador, no una BD pública.
+      - DC-Unlocker NO soporta el B612 (confirmado en foros: "nck
+        did not support it") — porque no hay cálculo local posible.
+
+   CONCLUSION: tú no puedes entrar a entéraT (firewall + credenciales
+   de empleado), pero SÍ puedes llegar al mismo sistema por las 3
+   vías del punto 3: Entel gratis por ley (800 367 626), un vendedor
+   con reembolso (~US$3-15), o flasheo USB sin código.
+
+---------------------------------------------------------------------
+6) RONDA CHINA + OCEANÍA (2026-08-12): ¿HAY MÉTODO PÚBLICO ALLÁ?
+---------------------------------------------------------------------
+   CONCLUSIÓN: NO. Ni China ni Oceanía tienen calculador, BD pública
+   ni método gratis para el B612. PERO la ronda dejó verificación
+   cruzada valiosa del método USB propio.
+
+   CHINA (verificado):
+   - Página OFICIAL de Huawei China (consumer.huawei.com/cn,
+     zh-cn15942115): el SIMLOCK es impuesto por el operador; la
+     "solución" oficial es usar la SIM del operador o contactarlo.
+     Huawei China NO genera códigos para CPE (línea 950800 es solo
+     para equipos de la región China).
+   - Foros chinos (数码之家 mydigit, 恩山 right.com.cn, CSDN,
+     花粉): hay hilos de 解锁/刷机 para OTROS routers Huawei
+     (B315-936 internacional, TC7102-15, 随行WiFi 3 Pro) — NADA
+     para el B612 Balong V7R11.
+   - Taobao/闲鱼: no aparecen vendedores de código para B612.
+   - LA CLAVE: el único sitio que menciona un "salt filtrado 2019"
+     del algoritmo V5 es techunlockhub (un VENDEDOR de códigos,
+     SEO generado, jun-2026). No hay NINGUNA corroboración
+     independiente: 4PDA (donde circulan los leaks reales) solo
+     tiene calculadoras de dongles 3G viejos (algo old/new/201,
+     serie E) — NUNCA existió calculador V5 para CPE v7R11
+     (coincide con nuestro análisis de libpinapi.so).
+
+   OCEANÍA (verificado):
+   - Cero resultados del B612 para Telstra/Optus/Vodafone NZ/
+     One NZ. Las páginas de vendedores que citan "Telstra/Optus"
+     lo hacen genéricamente para la familia B6xx (B525/B535/B618),
+     no para el B612. El B612 no se vendió en AU/NZ.
+
+   VERIFICACIÓN CRUZADA NUEVA (refuerza nuestro kit):
+   - Gist de ouralo (archivado, B612s-25d): desbloqueo por hardware
+     (BOOT-PIN + soldadura USB) con el MISMO comando:
+       atc at^nvwrex=8268,0,12,1,0,0,0,2,0,0,0,a,0,0,0
+   - Ese comando es IDÉNTICO al go.cmd extraído del unlock_v7r11
+     .exe (B612s-51d) y al de desbloquear_b612.py / kit_flasheo.
+   - techunlockhub confirma independientemente: B612s-51d = código
+     V5 de 16 dígitos (coincide con SimLockVersion=5 del módem) y
+     el desbloqueo persiste tras resets/actualizaciones (consistente
+     con bloqueo en NVRAM, no en firmware de usuario).
+   - Canal YouTube "HuaweiFirmware": desbloqueo del B612-233
+     (Orange Egipto) por FIRMWARE — misma clase que nuestro kit
+     (firmware custom + NVRAM), no por código.
+
+   VEREDICTO: la investigación global (Entel, vendedores, China,
+   Oceanía, 4PDA, firmware) converge en el mismo punto: NO hay
+   calculador V5 ni BD pública para el B612 v7R11. Las únicas
+   llaves siguen siendo: NCK de Entel (gratis por ley) o flasheo
+   USB con kit_flasheo (ahora confirmado por 3 fuentes
+   independientes).
+
+---------------------------------------------------------------------
+7) RONDA 2 CHINA (2026-08-12): LA "CALCULADORA V5 FILTRADA"
+   DEL ARTÍCULO DE TECHUNLOCKHUB — CAZA A FONDO Y VEREDICTO
+---------------------------------------------------------------------
+   PREGUNTA: ¿existe la calculadora pública con el "salt 2019"
+   que menciona techunlockhub? ¿La busqué a fondo en China?
+
+   SÍ SE BUSCÓ A FONDO (Taobao, DC-Unlocker, 4PDA, Huawei China).
+   RESULTADO: la calculadora V5 NO EXISTE. La afirmación del
+   artículo es marketing de vendedor, refutada con evidencia:
+
+   a) TAOBAO vende "华为v5解锁码计算器" (10.000+ items): el nombre
+      engaña. El "v5" ahí = versión 5.x de la HERRAMIENTA
+      (Huawei Modem Unlocker v5.7.8 / HUAWEI_Calculator.exe),
+      herramientas de algoritmos VIEJOS (algo 1/2/201 y V4 de
+      dongles 3G/4G antiguos), NO el algoritmo V5 de los CPE
+      Balong V7R11. (La página es JS — no se puede leer el
+      detalle, pero toda la evidencia circundante converge.)
+
+   b) DC-UNLOCKER (la mayor empresa de desbloqueo) tiene su propia
+      "Codes Calculator for Huawei": la lista de modelos soportados
+      son TODOS dongles viejos (E-series, B593, B183, Vodafone R...)
+      y dice EXPLÍCITAMENTE: "Customized routers, modems and
+      devices with blocked unlock attempt counter not supported".
+      El B612 (contador de intentos) está descartado por diseño.
+
+   c) 4PDA — el hilo OFICIAL de códigos (431986, 2013-2026):
+      - Las calculadoras públicas cubren: algo 1 (old), 2 (new),
+        201 (3G) y algo V4 (E3276, E392, E5776, E586, E589...).
+      - Para los 4G NUEVOS la respuesta del moderador es el mismo
+        bypass de NVRAM de nuestro kit:
+          at^nvwrex=8268,0,12,1,0,0,0,2,0,0,0,a,0,0,0
+      - NINGUNA mención de calculador V5 en todo el hilo.
+
+   d) 4PDA hilo E5885 (WiFi Pro 2): cita textual — "E5885 uses
+      even newer, v5 algo. So currently there's no known way to
+      unlock... without disassembling." Y en el hilo de
+      herramientas de modificación la gente SIGUE pidiendo el
+      "знак" (salt) para v5 (E5785, B618): NUNCA se filtró.
+
+   VEREDICTO FINAL: si el salt V5 hubiera existido, 4PDA (la
+   comunidad que lo tendría) tendría la calculadora. En lugar de
+   eso, siguen pidiéndolo. El "salt 2019" de techunlockhub es
+   ficción de SEO. El V5 (Balong V7R11, nuestro SimLockVersion=5)
+   NO se puede calcular localmente — confirmado por la comunidad
+   de referencia mundial.
+=====================================================================

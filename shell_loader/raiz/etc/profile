@@ -1,0 +1,7 @@
+# /etc/profile: entorno del shell loader B612
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export HOME=/root
+export PS1='\h(b612-shell):\w\$ '
+if [ -x /bin/busyboxx ]; then
+    echo "B612 shell loader listo. Ayuda: busyboxx --list"
+fi

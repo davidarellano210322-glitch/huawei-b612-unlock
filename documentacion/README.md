@@ -16,6 +16,7 @@
 | **06** | [📅 06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md](./06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md) | Bitácora de la investigación día a día: hipótesis, pruebas de laboratorio, errores encontrados y conclusiones. |
 | **07** | [📚 07_FUENTES_Y_REFERENCIAS.md](./07_FUENTES_Y_REFERENCIAS.md) | Referencias de foros 4PDA, comunidad Capa9 Chile, instructivo oficial UCSC/Entel y normativa Subtel. |
 | **08** | [🧬 08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md](./08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md) | Análisis del exploit Secuboot Bypass (`-x`), comparación con PotatoNV, mapa NVRAM `nvid.c` y arquitectura Hi6950. |
+| **09** | [🐚 09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md](./09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md) | Construcción del Shell Loader V7R5 autónomo en RAM, volcado completo de NVRAM y decodificación real del ítem 8268. |
 
 ---
 

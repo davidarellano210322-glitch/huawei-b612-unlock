@@ -19,12 +19,13 @@
 [![Firmware](https://img.shields.io/badge/Firmware-11.192.00.00.110%20(C110)-FF8000?style=for-the-badge&logo=huawei&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 [![Security Level](https://img.shields.io/badge/Security-SIM--Lock%20Algorithm%20V5-E00?style=for-the-badge&logo=securityscorecard&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 [![BootROM Exploit](https://img.shields.io/badge/BootROM-Secuboot%20Bypass%20(-x)-FF0055?style=for-the-badge&logo=gnu-bash&logoColor=white)](./documentacion/08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md)
+[![Shell Loader](https://img.shields.io/badge/Shell%20Loader-V7R5%20Autonomous%20RAM-00C7B7?style=for-the-badge&logo=terminal&logoColor=white)](./documentacion/09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md)
 [![Cryptographic Auth](https://img.shields.io/badge/Auth-SCRAM--SHA256%20(RFC%205802)-00DF89?style=for-the-badge&logo=auth0&logoColor=black)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 [![Python Engine](https://img.shields.io/badge/Python-3.9%20|%203.10%20|%203.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/davidarellano210322-glitch/huawei-b612-unlock)
 
 <br/>
 
-| [⚡ Inicio Rápido](#-inicio-r%C3%A1pido) | [📊 Telemetría en Vivo](#-telemetr%C3%ADa-y-estado-en-vivo) | [🔬 Ingeniería Inversa](#-an%C3%A1lisis-de-ingenier%C3%ADa-inversa) | [🧬 Exploit Secuboot](#-exploit-de-bootrom-secuboot-bypass-y-comparaci%C3%B3n-potatonv) | [🚀 Métodos Viables](#-rutas-de-desbloqueo-100-verificadas) | [🗂️ Documentación](./documentacion/README.md) |
+| [⚡ Inicio Rápido](#-inicio-r%C3%A1pido) | [📊 Telemetría en Vivo](#-telemetr%C3%ADa-y-estado-en-vivo) | [🔬 Ingeniería Inversa](#-an%C3%A1lisis-de-ingenier%C3%ADa-inversa) | [🐚 Shell Loader V7R5](#-shell-loader-v7r5-autónomo-en-ram) | [🚀 Métodos Viables](#-rutas-de-desbloqueo-100-verificadas) | [🗂️ Documentación](./documentacion/README.md) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 
 ---
@@ -33,7 +34,7 @@
 
 ## 🎯 Resumen Ejecutivo y Alcance
 
-Este proyecto comprende una **auditoría integral de seguridad, telemetría en tiempo real, desensamblado binario, análisis de exploits de BootROM y desarrollo de herramientas de bajo nivel** sobre el router 4G LTE **Huawei B612s-51d** bloqueado por defecto para la compañía **Entel Chile**.
+Este proyecto comprende una **auditoría integral de seguridad, telemetría en tiempo real, desensamblado binario, análisis de exploits de BootROM, construcción de Shell Loaders en RAM y desarrollo de herramientas de bajo nivel** sobre el router 4G LTE **Huawei B612s-51d** bloqueado por defecto para la compañía **Entel Chile**.
 
 El propósito central es dotar a la comunidad técnica de una guía concluyente que permita liberar el dispositivo para su uso en redes celulares de operadores alternativos (**WOM, Movistar, Claro**) sin riesgo de dañar la partición NVRAM y sin agotar los intentos de desbloqueo.
 
@@ -54,12 +55,14 @@ flowchart TD
     Locked --> V2["Vector 2: Calculadores V5 Offline"]
     Locked --> V3["Vector 3: Código NCK Legal (Operador)"]
     Locked --> V4["Vector 4: Flasheo USB / Balong Bootrom"]
+    Locked --> V5["Vector 5: Shell Loader V7R5 + Secuboot Bypass"]
 
     %% Evaluacion de Vectores
     V1 -->|"Auditoría 40+ Endpoints POST/GET"| V1_Res["❌ DESCARTADO: Error 100003<br/>Handler /api/filemanager/upload despojado en C110"]
     V2 -->|"Desensamblado de unlock_v7r11"| V2_Res["❌ DESCARTADO: No existe calculador matemático<br/>Los códigos NCK residen en la BD interna de Entel"]
     V3 -->|"Resolución Exenta Subtel Chile"| V3_Res["✅ VIABLE 100%: Solicitud Gratuita NCK<br/>Llamada al 800 367 626 + ingresar_codigo.py"]
-    V4 -->|"Testpoint BOOT + usbsafe / Secuboot Bypass"| V4_Res["✅ VIABLE 100%: Flasheo USB Autónomo<br/>Bypass NVRAM vía Telnet AT^NVWREX sin tocar intentos"]
+    V4 -->|"Testpoint BOOT + usbsafe + M_AT Firmware"| V4_Res["✅ VIABLE 100%: Flasheo USB Tradicional<br/>Bypass NVRAM vía Telnet AT^NVWREX sin tocar intentos"]
+    V5 -->|"balong_usbdload_x -x 4 + usbloader-b612-shell"| V5_Res["🚀 NOVEDAD: Carga 100% en RAM<br/>Consola Root (Serial/Telnet/ADB) sin flashear ROM"]
 
     %% Estilos de Nodos
     classDef default font-family:Inter,sans-serif;
@@ -67,11 +70,13 @@ flowchart TD
     classDef success fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
     classDef critical fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#e65100;
     classDef primary fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
+    classDef elite fill:#e0f2f1,stroke:#00897b,stroke-width:2px,color:#004d40;
 
     class Start,Scan primary;
     class Warning critical;
     class V1_Res,V2_Res blocked;
     class V3_Res,V4_Res success;
+    class V5_Res elite;
 ```
 
 ---
@@ -83,7 +88,7 @@ Al insertar una tarjeta SIM del operador **WOM** en el router, los scripts de te
 ```ini
 [HARDWARE_INFO]
 Device_Model        = Huawei B612s-51d
-SoC_Architecture    = HiSilicon Balong V7R5 (Hi6950 / V700R500C31B195)
+SoC_Architecture    = HiSilicon Balong V7R5 (Hi6950 / V700R500C31B195 / V700R500C31B201)
 IMEI_Identifier     = 864596030624094
 Firmware_Version    = 11.192.00.00.110
 Carrier_Custom      = CUST-B00C110 (Entel Chile)
@@ -102,43 +107,71 @@ PLMN_Status         = ""   [Denegado acceso a red 73009 (WOM)]
 
 ---
 
-## 🧬 Exploit de BootROM (Secuboot Bypass) y Comparación PotatoNV
+## 🐚 Shell Loader V7R5 Autónomo en RAM
 
-### 📱 PotatoNV vs. Ecosistema Balong
-[PotatoNV](https://github.com/kitsuned/PotatoNV) es la reconocida herramienta de desbloqueo de bootloader para SoCs **Huawei Kirin** (teléfonos). Aunque PotatoNV no soporta directamente el chipset Balong, la filosofía de explotación es exactamente homóloga:
+Se diseñó e implementó [`kit_flasheo/usbloader-b612-shell.bin`](./kit_flasheo/usbloader-b612-shell.bin), un cargador de arranque en RAM que **no escribe en la memoria flash** y expone consolas de depuración directa (**UART Serial, Telnet y ADB**) utilizando un *initramfs* autónomo con `busybox` estático extraído del firmware `M_AT`:
 
-```mermaid
-graph LR
-    subgraph KIRIN_PHONE [📱 Plataforma Kirin - PotatoNV]
-        K1[Testpoint VCOM] --> K2[Carga Bootloader Parcheado] --> K3[Escribe USRKEY en NVME]
-    end
-
-    subgraph BALONG_ROUTER [📡 Plataforma Balong - B612]
-        B1[Testpoint BOOT_3G] --> B2[Carga usbsafe-b612.bin] --> B3[Escribe Registro 8268 en NVRAM]
-    end
-
-    style KIRIN_PHONE fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    style BALONG_ROUTER fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+```
+   ┌────────────────────────────────────────────────────────────────────────┐
+   │                   ESTRUCTURA DEL SHELL LOADER V7R5                     │
+   │                                                                        │
+   │   [ Header usbldr / fastboot ] ───> ptable V7R500_CPE                  │
+   │   [ Bootimg ANDROID! @0x5c508 ]                                        │
+   │       ├── Kernel zImage ARM (0x5971e0 bytes gzip) [Intacto]            │
+   │       └── Ramdisk Nuevo (1.29 MB gzip / 2.31 MB cpio)                  │
+   │           ├── /init -> symlink a busyboxx                              │
+   │           ├── /bin/busyboxx (ARM estático 2.19 MB)                     │
+   │           ├── /bin/adbd     (ARM estático 117 KB)                      │
+   │           ├── /etc/inittab  (Consola en ttyAMA0 @115200)               │
+   │           └── /etc/init.d/rcS (Monta proc/sys y lanza telnetd :23)     │
+   │   [ Cola Cifrada del Loader ] ────> Preservada byte a byte (Round-trip)│
+   └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### ⚡ El Exploit `balong-usbdload -x 4` (ValdikSS / forth32)
-El repositorio de bajo nivel [`forth32/balong-usbdload`](https://github.com/forth32/balong-usbdload) incluye el exploit **Secuboot Bypass (`-x`)** con soporte directo para la familia **Balong V7R5 (Hi6950)** de nuestro B612:
+### Ejecución con Exploit Secuboot (`-x 4`):
+```cmd
+cd kit_flasheo
+balong_usbdload_x.exe -x 4 usbloader-b612-shell.bin
+```
+* **Serial (UART):** `ttyAMA0 @ 115200`
+* **Telnet:** Puerto `23` (IP LAN del router)
+* **ADB:** `adb connect 192.168.8.1:5555` $\rightarrow$ `adb shell`
 
-```c
-// secuboot_exploit_v7r5() - forth32/balong-usbdload
-// Plataforma objetivo: Hi6950 (B612s, B618s, B715s)
-// Parchea 0x1001FFEC (SRAM) escribiendo 8 bytes de ceros -> ANULA LA VERIFICACIÓN DE FIRMA
+---
+
+## 🗄️ Decodificación Real del Item 8268 (`CardlockStatus`)
+
+Mediante análisis directo con `balong-nvtool` sobre la partición NVRAM extraída del firmware **Balong V700R500C31B201**, se verificó la estructura binaria exacta del registro `8268`:
+
+```
+-- Item # 8268: 12 bytes (3 × uint32_t Little Endian) --
+00000000: 00 00 00 00 02 00 00 00 0A 00 00 00
 ```
 
-### 🗄️ Base de Datos de Registros NVRAM (`balong-nvtool / nvid.c`)
-La ingeniería inversa de la comunidad (`Huawei-LTE-routers-mods`) documenta los ítems clave de la NVRAM:
-* **Item 8267:** `CustomizeSimLockPlmnInfo` (Lista de PLMNs autorizados).
-* **Item 8268:** `CardlockStatus` (**Registro exacto modificado por `AT^NVWREX=8268...`**).
-* **Item 8269:** `CustomizeSimLockMaxTimes` (Contador de intentos máximos).
-* **Item 8517:** `ENHANCE_SIMCARD_LOCK_STATUS` (Estado de bloqueo avanzado).
-* **Item 8518:** `GENHANCE_SIMCARD_REMAIN_TIMES` (Contador de intentos restantes).
+| Campo (Offset) | Descripción | Estado Fábrica | Estado Bloqueado | Escritura de Desbloqueo |
+| :---: | :--- | :---: | :---: | :---: |
+| **0x00 (Word 0)** | Switch Cardlock (0=Off, 1=On) | `0x00000000` | `0x00000001` | `0x00000001` |
+| **0x04 (Word 1)** | **Estado (1=Bloqueado, 2=Desbloqueado)** | `0x00000002` | `0x00000001` | **`0x00000002`** |
+| **0x08 (Word 2)** | Intentos Restantes / Máximos | `0x0000000A` (10) | `0x0000000A` (10) | `0x0000000A` (10) |
 
-> Para un análisis profundo de este exploit y la estructura de SRAM, consulta [08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md](./documentacion/08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md).
+> **Confirmación Técnica:** El comando `atc at^nvwrex=8268,0,12,1,0,0,0,2,0,0,0,a,0,0,0` cambia el estado de la palabra 1 de `01` a `02` y restaura los reintentos a 10.
+
+---
+
+## 💾 Procedimiento de Backup Completo de NVRAM
+
+Para resguardar el IMEI, número de serie y calibración de radiofrecuencia antes de cualquier modificación:
+
+```bash
+# 1. Cargar usbsafe con exploit de secuboot:
+balong_usbdload_x.exe -x 4 usbsafe-b612.bin
+
+# 2. Respaldar particiones NVRAM vía balong-fbtools (Fastboot):
+python3 fbtool.py -p COM33 dump nvimg nvimg.bin
+python3 fbtool.py -p COM33 dump nvdload nvdload.bin
+python3 fbtool.py -p COM33 dump nvdefault nvdefault.bin
+python3 fbtool.py -p COM33 dump oeminfo oeminfo.bin
+```
 
 ---
 
@@ -240,15 +273,16 @@ flowchart LR
 
 | Script / Herramienta | Lenguaje / Tipo | Función Principal | Comando de Ejecución |
 | :--- | :---: | :--- | :--- |
+| [`kit_flasheo/balong_usbdload_x.exe`](./kit_flasheo/balong_usbdload_x.exe) | C / Win32 | Cargador con Exploit Secuboot Bypass (`-x 4`) | `balong_usbdload_x.exe -x 4 loader.bin` |
+| [`kit_flasheo/usbloader-b612-shell.bin`](./kit_flasheo/usbloader-b612-shell.bin) | Binario Bootloader | Shell Loader V7R5 autónomo en RAM con Busybox | Cargar vía `balong_usbdload_x.exe` |
+| [`shell_loader/construir_shell.py`](./shell_loader/construir_shell.py) | Python 3 | Generador y reempaquetador del Shell Loader V7R5 | `python shell_loader/construir_shell.py` |
 | [`sesion_b612.py`](./sesion_b612.py) | Python 3 | Motor de autenticación HiLink SCRAM-SHA256 | `python sesion_b612.py` |
 | [`desbloquear_b612.py`](./desbloquear_b612.py) | Python 3 | Cliente Telnet para anulación de SIM-Lock en NVRAM | `python desbloquear_b612.py` |
 | [`ingresar_codigo.py`](./ingresar_codigo.py) | Python 3 | Inyector seguro de NCK con validación de intentos | `python ingresar_codigo.py <CODIGO>` |
 | [`webui_update.py`](./webui_update.py) | Python 3 | Emulador de subida multipart `/api/filemanager/upload` | `python webui_update.py --probe` |
 | [`sonda_b612.py`](./sonda_b612.py) | Python 3 | Extractor completo de telemetría del módem | `python sonda_b612.py` |
 | [`endpoints_b612.py`](./endpoints_b612.py) | Python 3 | Auditor y escáner de endpoints HiLink bajo sesión | `python endpoints_b612.py` |
-| [`ports_deep.py`](./ports_deep.py) | Python 3 | Escáner de puertos TCP y servicios locales | `python ports_deep.py` |
-| [`simwatch.py`](./simwatch.py) | Python 3 | Monitor continuo de eventos SIM | `python simwatch.py` |
-| [`kit_flasheo/`](./kit_flasheo/) | Binarios C / Win32 | Cadena de herramientas Balong (`usbdload`, `flash`, drivers) | Ver [`kit_flasheo/README_PASOS.txt`](./kit_flasheo/README_PASOS.txt) |
+| [`balong-nvtool`](./balong-nvtool/) | C / Win32 | Extractor, visor y editor de particiones NVRAM | `balong-nvtool.exe -d 8268 nv.bin` |
 
 ---
 
@@ -268,14 +302,20 @@ huawei-b612-unlock/
 │   ├── 05_CATALOGO_SCRIPTS_HERRAMIENTAS.md      # 🛠️ Documentación detallada de scripts
 │   ├── 06_CRONOLOGIA_E_HISTORIAL_INVESTIGACION.md # 📅 Bitácora día a día de la investigación
 │   ├── 07_FUENTES_Y_REFERENCIAS.md              # 🌐 Créditos 4PDA, Capa9, Subtel y UCSC
-│   └── 08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md # 🧬 Exploit BootROM -x, PotatoNV y NVRAM nvid
+│   ├── 08_EXPLOIT_SECUBOOT_Y_ECOSISTEMA_BALONG.md # 🧬 Exploit BootROM -x, PotatoNV y NVRAM nvid
+│   └── 09_SHELL_LOADER_V7R5_Y_BACKUP_NVRAM.md   # 🐚 Shell Loader V7R5 y verificación real ítem 8268
 ├── kit_flasheo/                                 # 🧰 Toolchain de Flasheo USB Balong
 │   ├── balong_flash.exe                         # Flasheador de bajo nivel
-│   ├── balong_usbdload.exe                      # Cargador de arranque en RAM
-│   ├── Balong_USB_Downloader_1.0.1.10.exe       # GUI de flasheo
+│   ├── balong_usbdload.exe                      # Cargador de arranque en RAM clásico
+│   ├── balong_usbdload_x.exe                    # Cargador con exploit Secuboot Bypass (-x 4)
 │   ├── usbsafe-b612.bin                         # Bootloader seguro para B612
+│   ├── usbloader-b612-shell.bin                 # Shell Loader V7R5 autónomo en RAM
 │   ├── README_PASOS.txt                         # Manual de comandos para flasheo
 │   └── drivers/                                 # Controladores USB y Fix para Win 10/11
+├── shell_loader/                                # 🐚 Entorno de construcción de Shell Loader
+│   ├── construir_shell.py                       # Constructor y reempaquetador de bootimg
+│   ├── analizar_bootimg.py                      # Analizador de offsets y headers cpio/gzip
+│   └── raiz/                                    # Plantillas de inittab, rcS, profile y default.prop
 └── [Scripts Python...]                          # 🐍 Motores de sesión, diagnóstico y desbloqueo
 ```
 

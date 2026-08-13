@@ -9,20 +9,29 @@ venv/
 env/
 .env
 
+# Toolchains y compiladores pesados locales (>50MB)
+toolchain/
+*.7z*
+
 # Archivos pesados y binarios de firmware (>40MB)
 *.zip
 *.rar
 *.bin
 *.sqsh
+*.cpio
+
+# Permitir archivos de soporte específicos si se requiere
+!kit_flasheo/*.exe
+!balong-nvtool/winbuild/Release/balong-nvtool.exe
 
 # Carpetas temporales de descompresión / volcado
 webui_cpio/
 webui_flat/
 webui_full/
 pack_huawei/
+shell_loader/extraido/
+shell_loader/ramdisk/
 
 # Logs y temporales
 *.log
 .freebuff/
-
-
